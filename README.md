@@ -24,6 +24,10 @@ workflow is more viable
 * Does not include any android specific code. Equivalent to the `-jre` build.
 * Compiled for Java 9+, not Java 8
 
+## Notable changes from `com.google.common.primitives`
+- The `Comparator` in `UnsignedBytes` that used `sun.misc.Unsafe` was removed.
+- All `javax.annotation` references are replaced with references to `dev.mccue.jsr305`.
+
 ## Usage
 
 For the most part, you should be able to just find+replace all

@@ -267,11 +267,7 @@ public final class UnsignedBytes {
   }
 
   /**
-   * Provides a lexicographical comparator implementation; either a Java implementation or a faster
-   * implementation based on {@link Unsafe}.
-   *
-   * <p>Uses reflection to gracefully fall back to the Java implementation if {@code Unsafe} isn't
-   * available.
+   * Provides a lexicographical comparator implementation.
    */
   @VisibleForTesting
   static class LexicographicalComparatorHolder {
@@ -299,8 +295,7 @@ public final class UnsignedBytes {
     }
 
     /**
-     * Returns the Unsafe-using Comparator, or falls back to the pure-Java implementation if unable
-     * to do so.
+     * Returns the pure-Java implementation.
      */
     static Comparator<byte[]> getBestComparator() {
       return lexicographicalComparatorJavaImpl();
