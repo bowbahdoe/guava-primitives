@@ -14,18 +14,21 @@
 
 package dev.mccue.guava.primitives;
 
+import static dev.mccue.guava.base.Preconditions.checkArgument;
+import static dev.mccue.guava.base.Preconditions.checkNotNull;
+import static dev.mccue.guava.base.Preconditions.checkPositionIndexes;
+import static java.util.Objects.requireNonNull;
+
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
-
+import java.nio.ByteOrder;
 import java.util.Arrays;
-import java.util.Comparator;
-
-import static dev.mccue.guava.base.Preconditions.*;
+import java.util.Comparator;;
 
 /**
  * Static utility methods pertaining to {@code byte} primitives that interpret values as
  * <i>unsigned</i> (that is, any negative value {@code b} is treated as the positive value {@code
- * 256 + b}). The corresponding methods that treat the values as signed are found in {@link
- * SignedBytes}, and the methods for which signedness is not an issue are in {@link Bytes}.
+ * 256 + b}). The corresponding methods that treat the values as signed are found in {@code
+ * SignedBytes}, and the methods for which signedness is not an issue are in {@code Bytes}.
  *
  * <p>See the Guava User Guide article on <a
  * href="https://github.com/google/guava/wiki/PrimitivesExplained">primitive utilities</a>.
@@ -60,7 +63,7 @@ public final class UnsignedBytes {
    * Returns the value of the given byte as an integer, when treated as unsigned. That is, returns
    * {@code value + 256} if {@code value} is negative; {@code value} itself otherwise.
    *
-   * <p><b>Java 8 users:</b> use {@link Byte#toUnsignedInt(byte)} instead.
+   * <p><b>Java 8 users:</b> use {@code Byte#toUnsignedInt(byte)} instead.
    *
    * @since 6.0
    */
@@ -119,7 +122,7 @@ public final class UnsignedBytes {
    *
    * @param array a <i>nonempty</i> array of {@code byte} values
    * @return the value present in {@code array} that is less than or equal to every other value in
-   *     the array according to {@link #compare}
+   *     the array according to {@code #compare}
    * @throws IllegalArgumentException if {@code array} is empty
    */
   public static byte min(byte... array) {
@@ -139,7 +142,7 @@ public final class UnsignedBytes {
    *
    * @param array a <i>nonempty</i> array of {@code byte} values
    * @return the value present in {@code array} that is greater than or equal to every other value
-   *     in the array according to {@link #compare}
+   *     in the array according to {@code #compare}
    * @throws IllegalArgumentException if {@code array} is empty
    */
   public static byte max(byte... array) {
@@ -169,8 +172,8 @@ public final class UnsignedBytes {
    *
    * @param x the value to convert to a string.
    * @param radix the radix to use while working with {@code x}
-   * @throws IllegalArgumentException if {@code radix} is not between {@link Character#MIN_RADIX}
-   *     and {@link Character#MAX_RADIX}.
+   * @throws IllegalArgumentException if {@code radix} is not between {@code Character#MIN_RADIX}
+   *     and {@code Character#MAX_RADIX}.
    * @since 13.0
    */
   public static String toString(byte x, int radix) {
@@ -187,7 +190,7 @@ public final class UnsignedBytes {
    *
    * @throws NumberFormatException if the string does not contain a valid unsigned {@code byte}
    *     value
-   * @throws NullPointerException if {@code string} is null (in contrast to {@link
+   * @throws NullPointerException if {@code string} is null (in contrast to {@code
    *     Byte#parseByte(String)})
    * @since 13.0
    */
@@ -202,9 +205,9 @@ public final class UnsignedBytes {
    * @param string the string containing the unsigned {@code byte} representation to be parsed.
    * @param radix the radix to use while parsing {@code string}
    * @throws NumberFormatException if the string does not contain a valid unsigned {@code byte} with
-   *     the given radix, or if {@code radix} is not between {@link Character#MIN_RADIX} and {@link
+   *     the given radix, or if {@code radix} is not between {@code Character#MIN_RADIX} and {@code
    *     Character#MAX_RADIX}.
-   * @throws NullPointerException if {@code string} is null (in contrast to {@link
+   * @throws NullPointerException if {@code string} is null (in contrast to {@code
    *     Byte#parseByte(String)})
    * @since 13.0
    */
@@ -246,14 +249,14 @@ public final class UnsignedBytes {
   /**
    * Returns a comparator that compares two {@code byte} arrays <a
    * href="http://en.wikipedia.org/wiki/Lexicographical_order">lexicographically</a>. That is, it
-   * compares, using {@link #compare(byte, byte)}), the first pair of values that follow any common
+   * compares, using {@code #compare(byte, byte)}), the first pair of values that follow any common
    * prefix, or when one array is a prefix of the other, treats the shorter array as the lesser. For
    * example, {@code [] < [0x01] < [0x01, 0x7F] < [0x01, 0x80] < [0x02]}. Values are treated as
    * unsigned.
    *
-   * <p>The returned comparator is inconsistent with {@link Object#equals(Object)} (since arrays
-   * support only identity equality), but it is consistent with {@link
-   * Arrays#equals(byte[], byte[])}.
+   * <p>The returned comparator is inconsistent with {@code Object#equals(Object)} (since arrays
+   * support only identity equality), but it is consistent with {@code
+   * java.util.Arrays#equals(byte[], byte[])}.
    *
    * @since 2.0
    */
@@ -261,16 +264,19 @@ public final class UnsignedBytes {
     return LexicographicalComparatorHolder.BEST_COMPARATOR;
   }
 
-  @VisibleForTesting
   static Comparator<byte[]> lexicographicalComparatorJavaImpl() {
     return LexicographicalComparatorHolder.PureJavaComparator.INSTANCE;
   }
 
   /**
-   * Provides a lexicographical comparator implementation.
+   * Provides a lexicographical comparator implementation; either a Java implementation or a faster
+   * implementation based on {@code Unsafe}.
+   *
+   * <p>Uses reflection to gracefully fall back to the Java implementation if {@code Unsafe} isn't
+   * available.
    */
-  @VisibleForTesting
   static class LexicographicalComparatorHolder {
+
     static final Comparator<byte[]> BEST_COMPARATOR = getBestComparator();
 
     enum PureJavaComparator implements Comparator<byte[]> {

@@ -27,40 +27,40 @@
  * <h3>Value types</h3>
  *
  * <ul>
- *   <li>{@link dev.mccue.guava.primitives.ImmutableDoubleArray}
- *   <li>{@link dev.mccue.guava.primitives.ImmutableIntArray}
- *   <li>{@link dev.mccue.guava.primitives.ImmutableLongArray}
- *   <li>{@link dev.mccue.guava.primitives.UnsignedInteger}
- *   <li>{@link dev.mccue.guava.primitives.UnsignedLong}
+ *   <li>{@code ImmutableDoubleArray}
+ *   <li>{@code ImmutableIntArray}
+ *   <li>{@code ImmutableLongrray}
+ *   <li>{@code UnsignedInteger}
+ *   <li>{@code UnsignedLong}
  * </ul>
  *
  * <h3>Per-type static utilities</h3>
  *
  * <ul>
- *   <li>{@link dev.mccue.guava.primitives.Booleans}
- *   <li>{@link dev.mccue.guava.primitives.Bytes}
+ *   <li>{@code Booleans}
+ *   <li>{@code Bytes}
  *       <ul>
- *         <li>{@link dev.mccue.guava.primitives.SignedBytes}
- *         <li>{@link dev.mccue.guava.primitives.UnsignedBytes}
+ *         <li>{@code SignedBytes}
+ *         <li>{@code UnsignedBytes}
  *       </ul>
- *   <li>{@link dev.mccue.guava.primitives.Chars}
- *   <li>{@link dev.mccue.guava.primitives.Doubles}
- *   <li>{@link dev.mccue.guava.primitives.Floats}
- *   <li>{@link dev.mccue.guava.primitives.Ints}
+ *   <li>{@code Chars}
+ *   <li>{@code Doubles}
+ *   <li>{@code Floats}
+ *   <li>{@code Ints}
  *       <ul>
- *         <li>{@link dev.mccue.guava.primitives.UnsignedInts}
+ *         <li>{@code UnsignedInts}
  *       </ul>
- *   <li>{@link dev.mccue.guava.primitives.Longs}
+ *   <li>{@code Longs}
  *       <ul>
- *         <li>{@link dev.mccue.guava.primitives.UnsignedLongs}
+ *         <li>{@code UnsignedLongs}
  *       </ul>
- *   <li>{@link dev.mccue.guava.primitives.Shorts}
+ *   <li>{@code Shorts}
  * </ul>
  *
  * <h3>General static utilities</h3>
  *
  * <ul>
- *   <li>{@link dev.mccue.guava.primitives.Primitives}
+ *   <li>{@code Primitives}
  * </ul>
  */
 @ParametersAreNonnullByDefault
@@ -69,4 +69,3 @@ package dev.mccue.guava.primitives;
 
 import com.google.errorprone.annotations.CheckReturnValue;
 import dev.mccue.jsr305.ParametersAreNonnullByDefault;
-import dev.mccue.guava.primitives.*;

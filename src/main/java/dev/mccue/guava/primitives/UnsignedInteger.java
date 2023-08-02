@@ -27,7 +27,7 @@ import dev.mccue.jsr305.CheckForNull;
  * A wrapper class for unsigned {@code int} values, supporting arithmetic operations.
  *
  * <p>In some cases, when speed is more important than code readability, it may be faster simply to
- * treat primitive {@code int} values as unsigned, using the methods from {@link UnsignedInts}.
+ * treat primitive {@code int} values as unsigned, using the methods from {@code UnsignedInts}.
  *
  * <p>See the Guava User Guide article on <a
  * href="https://github.com/google/guava/wiki/PrimitivesExplained#unsigned-support">unsigned
@@ -36,6 +36,7 @@ import dev.mccue.jsr305.CheckForNull;
  * @author Louis Wasserman
  * @since 11.0
  */
+
 @ElementTypesAreNonnullByDefault
 public final class UnsignedInteger extends Number implements Comparable<UnsignedInteger> {
   public static final UnsignedInteger ZERO = fromIntBits(0);
@@ -57,7 +58,7 @@ public final class UnsignedInteger extends Number implements Comparable<Unsigned
    * <p>If the argument is nonnegative, the returned result will be equal to {@code bits},
    * otherwise, the result will be equal to {@code 2^32 + bits}.
    *
-   * <p>To represent unsigned decimal constants, consider {@link #valueOf(long)} instead.
+   * <p>To represent unsigned decimal constants, consider {@code #valueOf(long)} instead.
    *
    * @since 14.0
    */
@@ -67,7 +68,7 @@ public final class UnsignedInteger extends Number implements Comparable<Unsigned
 
   /**
    * Returns an {@code UnsignedInteger} that is equal to {@code value}, if possible. The inverse
-   * operation of {@link #longValue()}.
+   * operation of {@code #longValue()}.
    */
   public static UnsignedInteger valueOf(long value) {
     checkArgument(
@@ -78,8 +79,8 @@ public final class UnsignedInteger extends Number implements Comparable<Unsigned
   }
 
   /**
-   * Returns a {@code UnsignedInteger} representing the same value as the specified {@link
-   * BigInteger}. This is the inverse operation of {@link #bigIntegerValue()}.
+   * Returns a {@code UnsignedInteger} representing the same value as the specified {@code
+   * BigInteger}. This is the inverse operation of {@code #bigIntegerValue()}.
    *
    * @throws IllegalArgumentException if {@code value} is negative or {@code value >= 2^32}
    */
@@ -140,6 +141,7 @@ public final class UnsignedInteger extends Number implements Comparable<Unsigned
    *
    * @since 14.0
    */
+  // Does not truncate correctly
   public UnsignedInteger times(UnsignedInteger val) {
     // TODO(lowasser): make this GWT-compatible
     return fromIntBits(value * checkNotNull(val).value);
@@ -167,7 +169,7 @@ public final class UnsignedInteger extends Number implements Comparable<Unsigned
 
   /**
    * Returns the value of this {@code UnsignedInteger} as an {@code int}. This is an inverse
-   * operation to {@link #fromIntBits}.
+   * operation to {@code #fromIntBits}.
    *
    * <p>Note that if this {@code UnsignedInteger} holds a value {@code >= 2^31}, the returned value
    * will be equal to {@code this - 2^32}.
@@ -201,7 +203,7 @@ public final class UnsignedInteger extends Number implements Comparable<Unsigned
     return longValue();
   }
 
-  /** Returns the value of this {@code UnsignedInteger} as a {@link BigInteger}. */
+  /** Returns the value of this {@code UnsignedInteger} as a {@code BigInteger}. */
   public BigInteger bigIntegerValue() {
     return BigInteger.valueOf(longValue());
   }

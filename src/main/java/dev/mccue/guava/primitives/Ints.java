@@ -14,13 +14,12 @@
 
 package dev.mccue.guava.primitives;
 
-import dev.mccue.guava.base.Converter;
-
 import static dev.mccue.guava.base.Preconditions.checkArgument;
 import static dev.mccue.guava.base.Preconditions.checkElementIndex;
 import static dev.mccue.guava.base.Preconditions.checkNotNull;
 import static dev.mccue.guava.base.Preconditions.checkPositionIndexes;
 
+import dev.mccue.guava.base.Converter;
 import java.io.Serializable;
 import java.util.AbstractList;
 import java.util.Arrays;
@@ -35,7 +34,7 @@ import dev.mccue.jsr305.CheckForNull;
 
 /**
  * Static utility methods pertaining to {@code int} primitives, that are not already found in either
- * {@link Integer} or {@link Arrays}.
+ * {@code Integer} or {@code Arrays}.
  *
  * <p>See the Guava User Guide article on <a
  * href="https://github.com/google/guava/wiki/PrimitivesExplained">primitive utilities</a>.
@@ -43,14 +42,15 @@ import dev.mccue.jsr305.CheckForNull;
  * @author Kevin Bourrillion
  * @since 1.0
  */
+
 @ElementTypesAreNonnullByDefault
-public final class Ints {
+public final class Ints extends IntsMethodsForWeb {
   private Ints() {}
 
   /**
    * The number of bytes required to represent a primitive {@code int} value.
    *
-   * <p><b>Java 8 users:</b> use {@link Integer#BYTES} instead.
+   * <p><b>Java 8 users:</b> use {@code Integer#BYTES} instead.
    */
   public static final int BYTES = Integer.SIZE / Byte.SIZE;
 
@@ -65,7 +65,7 @@ public final class Ints {
    * Returns a hash code for {@code value}; equal to the result of invoking {@code ((Integer)
    * value).hashCode()}.
    *
-   * <p><b>Java 8 users:</b> use {@link Integer#hashCode(int)} instead.
+   * <p><b>Java 8 users:</b> use {@code Integer#hashCode(int)} instead.
    *
    * @param value a primitive {@code int} value
    * @return a hash code for the value
@@ -79,8 +79,8 @@ public final class Ints {
    *
    * @param value any value in the range of the {@code int} type
    * @return the {@code int} value that equals {@code value}
-   * @throws IllegalArgumentException if {@code value} is greater than {@link Integer#MAX_VALUE} or
-   *     less than {@link Integer#MIN_VALUE}
+   * @throws IllegalArgumentException if {@code value} is greater than {@code Integer#MAX_VALUE} or
+   *     less than {@code Integer#MIN_VALUE}
    */
   public static int checkedCast(long value) {
     int result = (int) value;
@@ -93,7 +93,7 @@ public final class Ints {
    *
    * @param value any {@code long} value
    * @return the same value cast to {@code int} if it is in the range of the {@code int} type,
-   *     {@link Integer#MAX_VALUE} if it is too large, or {@link Integer#MIN_VALUE} if it is too
+   *     {@code Integer#MAX_VALUE} if it is too large, or {@code Integer#MIN_VALUE} if it is too
    *     small
    */
   public static int saturatedCast(long value) {
@@ -111,7 +111,7 @@ public final class Ints {
    * that of {@code ((Integer) a).compareTo(b)}.
    *
    * <p><b>Note for Java 7 and later:</b> this method should be treated as deprecated; use the
-   * equivalent {@link Integer#compare} method instead.
+   * equivalent {@code Integer#compare} method instead.
    *
    * @param a the first {@code int} to compare
    * @param b the second {@code int} to compare
@@ -219,6 +219,7 @@ public final class Ints {
    *     the array
    * @throws IllegalArgumentException if {@code array} is empty
    */
+  
   public static int min(int... array) {
     checkArgument(array.length > 0);
     int min = array[0];
@@ -238,6 +239,7 @@ public final class Ints {
    *     in the array
    * @throws IllegalArgumentException if {@code array} is empty
    */
+  
   public static int max(int... array) {
     checkArgument(array.length > 0);
     int max = array[0];
@@ -294,7 +296,7 @@ public final class Ints {
    * 0x12131415} would yield the byte array {@code {0x12, 0x13, 0x14, 0x15}}.
    *
    * <p>If you need to convert and concatenate several values (possibly even of different types),
-   * use a shared {@link java.nio.ByteBuffer} instance, or use {@code
+   * use a shared {@code java.nio.ByteBuffer} instance, or use {@code
    * dev.mccue.guava.io.ByteStreams#newDataOutput()} to get a growable buffer.
    */
   public static byte[] toByteArray(int value) {
@@ -309,7 +311,7 @@ public final class Ints {
    * byte array {@code {0x12, 0x13, 0x14, 0x15, 0x33}} would yield the {@code int} value {@code
    * 0x12131415}.
    *
-   * <p>Arguably, it's preferable to use {@link java.nio.ByteBuffer}; that library exposes much more
+   * <p>Arguably, it's preferable to use {@code java.nio.ByteBuffer}; that library exposes much more
    * flexibility at little cost in readability.
    *
    * @throws IllegalArgumentException if {@code bytes} has fewer than 4 elements
@@ -356,11 +358,11 @@ public final class Ints {
   }
 
   /**
-   * Returns a serializable converter object that converts between strings and integers using {@link
-   * Integer#decode} and {@link Integer#toString()}. The returned converter throws {@link
+   * Returns a serializable converter object that converts between strings and integers using {@code
+   * Integer#decode} and {@code Integer#toString()}. The returned converter throws {@code
    * NumberFormatException} if the input string is invalid.
    *
-   * <p><b>Warning:</b> please see {@link Integer#decode} to understand exactly how strings are
+   * <p><b>Warning:</b> please see {@code Integer#decode} to understand exactly how strings are
    * parsed. For example, the string {@code "0123"} is treated as <i>octal</i> and converted to the
    * value {@code 83}.
    *
@@ -415,12 +417,12 @@ public final class Ints {
   /**
    * Returns a comparator that compares two {@code int} arrays <a
    * href="http://en.wikipedia.org/wiki/Lexicographical_order">lexicographically</a>. That is, it
-   * compares, using {@link #compare(int, int)}), the first pair of values that follow any common
+   * compares, using {@code #compare(int, int)}), the first pair of values that follow any common
    * prefix, or when one array is a prefix of the other, treats the shorter array as the lesser. For
    * example, {@code [] < [1] < [1, 2] < [2]}.
    *
-   * <p>The returned comparator is inconsistent with {@link Object#equals(Object)} (since arrays
-   * support only identity equality), but it is consistent with {@link Arrays#equals(int[], int[])}.
+   * <p>The returned comparator is inconsistent with {@code Object#equals(Object)} (since arrays
+   * support only identity equality), but it is consistent with {@code Arrays#equals(int[], int[])}.
    *
    * @since 2.0
    */
@@ -581,7 +583,7 @@ public final class Ints {
 
   /**
    * Returns an array containing each value of {@code collection}, converted to a {@code int} value
-   * in the manner of {@link Number#intValue}.
+   * in the manner of {@code Number#intValue}.
    *
    * <p>Elements are copied from the argument collection as if by {@code collection.toArray()}.
    * Calling this method is as thread-safe as calling that method.
@@ -608,9 +610,9 @@ public final class Ints {
   }
 
   /**
-   * Returns a fixed-size list backed by the specified array, similar to {@link
-   * Arrays#asList(Object[])}. The list supports {@link List#set(int, Object)}, but any attempt to
-   * set a value to {@code null} will result in a {@link NullPointerException}.
+   * Returns a fixed-size list backed by the specified array, similar to {@code
+   * Arrays#asList(Object[])}. The list supports {@code List#set(int, Object)}, but any attempt to
+   * set a value to {@code null} will result in a {@code NullPointerException}.
    *
    * <p>The returned list maintains the values, but not the identities, of {@code Integer} objects
    * written to or read from it. For example, whether {@code list.get(0) == list.get(0)} is true for
@@ -618,8 +620,8 @@ public final class Ints {
    *
    * <p>The returned list is serializable.
    *
-   * <p><b>Note:</b> when possible, you should represent your data as an {@link ImmutableIntArray}
-   * instead, which has an {@link ImmutableIntArray#asList asList} view.
+   * <p><b>Note:</b> when possible, you should represent your data as an {@code ImmutableIntArray}
+   * instead, which has an {@code ImmutableIntArray#asList asList} view.
    *
    * @param backingArray the array to back the list
    * @return a list view of the array
@@ -768,12 +770,12 @@ public final class Ints {
    * Parses the specified string as a signed decimal integer value. The ASCII character {@code '-'}
    * (<code>'&#92;u002D'</code>) is recognized as the minus sign.
    *
-   * <p>Unlike {@link Integer#parseInt(String)}, this method returns {@code null} instead of
+   * <p>Unlike {@code Integer#parseInt(String)}, this method returns {@code null} instead of
    * throwing an exception if parsing fails. Additionally, this method only accepts ASCII digits,
    * and returns {@code null} if non-ASCII digits are present in the string.
    *
    * <p>Note that strings prefixed with ASCII {@code '+'} are rejected, even under JDK 7, despite
-   * the change to {@link Integer#parseInt(String)} for that version.
+   * the change to {@code Integer#parseInt(String)} for that version.
    *
    * @param string the string representation of an integer value
    * @return the integer value represented by {@code string}, or {@code null} if {@code string} has
@@ -790,12 +792,12 @@ public final class Ints {
    * Parses the specified string as a signed integer value using the specified radix. The ASCII
    * character {@code '-'} (<code>'&#92;u002D'</code>) is recognized as the minus sign.
    *
-   * <p>Unlike {@link Integer#parseInt(String, int)}, this method returns {@code null} instead of
+   * <p>Unlike {@code Integer#parseInt(String, int)}, this method returns {@code null} instead of
    * throwing an exception if parsing fails. Additionally, this method only accepts ASCII digits,
    * and returns {@code null} if non-ASCII digits are present in the string.
    *
    * <p>Note that strings prefixed with ASCII {@code '+'} are rejected, even under JDK 7, despite
-   * the change to {@link Integer#parseInt(String, int)} for that version.
+   * the change to {@code Integer#parseInt(String, int)} for that version.
    *
    * @param string the string representation of an integer value
    * @param radix the radix to use when parsing

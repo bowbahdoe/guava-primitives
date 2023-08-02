@@ -23,8 +23,8 @@ import java.util.Comparator;
 
 /**
  * Static utility methods pertaining to {@code byte} primitives that interpret values as signed. The
- * corresponding methods that treat the values as unsigned are found in {@link UnsignedBytes}, and
- * the methods for which signedness is not an issue are in {@link Bytes}.
+ * corresponding methods that treat the values as unsigned are found in {@code UnsignedBytes}, and
+ * the methods for which signedness is not an issue are in {@code Bytes}.
  *
  * <p>See the Guava User Guide article on <a
  * href="https://github.com/google/guava/wiki/PrimitivesExplained">primitive utilities</a>.
@@ -50,8 +50,8 @@ public final class SignedBytes {
    *
    * @param value any value in the range of the {@code byte} type
    * @return the {@code byte} value that equals {@code value}
-   * @throws IllegalArgumentException if {@code value} is greater than {@link Byte#MAX_VALUE} or
-   *     less than {@link Byte#MIN_VALUE}
+   * @throws IllegalArgumentException if {@code value} is greater than {@code Byte#MAX_VALUE} or
+   *     less than {@code Byte#MIN_VALUE}
    */
   public static byte checkedCast(long value) {
     byte result = (byte) value;
@@ -64,7 +64,7 @@ public final class SignedBytes {
    *
    * @param value any {@code long} value
    * @return the same value cast to {@code byte} if it is in the range of the {@code byte} type,
-   *     {@link Byte#MAX_VALUE} if it is too large, or {@link Byte#MIN_VALUE} if it is too small
+   *     {@code Byte#MAX_VALUE} if it is too large, or {@code Byte#MIN_VALUE} if it is too small
    */
   public static byte saturatedCast(long value) {
     if (value > Byte.MAX_VALUE) {
@@ -80,7 +80,7 @@ public final class SignedBytes {
    * Compares the two specified {@code byte} values. The sign of the value returned is the same as
    * that of {@code ((Byte) a).compareTo(b)}.
    *
-   * <p><b>Note:</b> this method behaves identically to the JDK 7 method {@link Byte#compare}.
+   * <p><b>Note:</b> this method behaves identically to the JDK 7 method {@code Byte#compare}.
    *
    * @param a the first {@code byte} to compare
    * @param b the second {@code byte} to compare
@@ -157,14 +157,14 @@ public final class SignedBytes {
   /**
    * Returns a comparator that compares two {@code byte} arrays <a
    * href="http://en.wikipedia.org/wiki/Lexicographical_order">lexicographically</a>. That is, it
-   * compares, using {@link #compare(byte, byte)}), the first pair of values that follow any common
+   * compares, using {@code #compare(byte, byte)}), the first pair of values that follow any common
    * prefix, or when one array is a prefix of the other, treats the shorter array as the lesser. For
    * example, {@code [] < [0x01] < [0x01, 0x80] < [0x01, 0x7F] < [0x02]}. Values are treated as
    * signed.
    *
-   * <p>The returned comparator is inconsistent with {@link Object#equals(Object)} (since arrays
-   * support only identity equality), but it is consistent with {@link
-   * Arrays#equals(byte[], byte[])}.
+   * <p>The returned comparator is inconsistent with {@code Object#equals(Object)} (since arrays
+   * support only identity equality), but it is consistent with {@code
+   * java.util.Arrays#equals(byte[], byte[])}.
    *
    * @since 2.0
    */

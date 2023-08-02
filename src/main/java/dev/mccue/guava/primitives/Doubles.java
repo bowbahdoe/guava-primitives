@@ -37,7 +37,7 @@ import dev.mccue.jsr305.CheckForNull;
 
 /**
  * Static utility methods pertaining to {@code double} primitives, that are not already found in
- * either {@link Double} or {@link Arrays}.
+ * either {@code Double} or {@code Arrays}.
  *
  * <p>See the Guava User Guide article on <a
  * href="https://github.com/google/guava/wiki/PrimitivesExplained">primitive utilities</a>.
@@ -45,14 +45,15 @@ import dev.mccue.jsr305.CheckForNull;
  * @author Kevin Bourrillion
  * @since 1.0
  */
+
 @ElementTypesAreNonnullByDefault
-public final class Doubles {
+public final class Doubles extends DoublesMethodsForWeb {
   private Doubles() {}
 
   /**
    * The number of bytes required to represent a primitive {@code double} value.
    *
-   * <p><b>Java 8 users:</b> use {@link Double#BYTES} instead.
+   * <p><b>Java 8 users:</b> use {@code Double#BYTES} instead.
    *
    * @since 10.0
    */
@@ -62,7 +63,7 @@ public final class Doubles {
    * Returns a hash code for {@code value}; equal to the result of invoking {@code ((Double)
    * value).hashCode()}.
    *
-   * <p><b>Java 8 users:</b> use {@link Double#hashCode(double)} instead.
+   * <p><b>Java 8 users:</b> use {@code Double#hashCode(double)} instead.
    *
    * @param value a primitive {@code double} value
    * @return a hash code for the value
@@ -76,10 +77,10 @@ public final class Doubles {
 
   /**
    * Compares the two specified {@code double} values. The sign of the value returned is the same as
-   * that of <code>((Double) a).{@linkplain Double#compareTo compareTo}(b)</code>. As with that
+   * that of <code>((Double) a).{@code Double#compareTo compareTo}(b)</code>. As with that
    * method, {@code NaN} is treated as greater than all other values, and {@code 0.0 > -0.0}.
    *
-   * <p><b>Note:</b> this method simply delegates to the JDK method {@link Double#compare}. It is
+   * <p><b>Note:</b> this method simply delegates to the JDK method {@code Double#compare}. It is
    * provided for consistency with the other primitive types, whose compare methods were not added
    * to the JDK until JDK 7.
    *
@@ -96,7 +97,7 @@ public final class Doubles {
    * Returns {@code true} if {@code value} represents a real number. This is equivalent to, but not
    * necessarily implemented as, {@code !(Double.isInfinite(value) || Double.isNaN(value))}.
    *
-   * <p><b>Java 8 users:</b> use {@link Double#isFinite(double)} instead.
+   * <p><b>Java 8 users:</b> use {@code Double#isFinite(double)} instead.
    *
    * @since 10.0
    */
@@ -199,7 +200,7 @@ public final class Doubles {
   }
 
   /**
-   * Returns the least value present in {@code array}, using the same rules of comparison as {@link
+   * Returns the least value present in {@code array}, using the same rules of comparison as {@code
    * Math#min(double, double)}.
    *
    * @param array a <i>nonempty</i> array of {@code double} values
@@ -207,6 +208,7 @@ public final class Doubles {
    *     the array
    * @throws IllegalArgumentException if {@code array} is empty
    */
+  
   public static double min(double... array) {
     checkArgument(array.length > 0);
     double min = array[0];
@@ -218,13 +220,14 @@ public final class Doubles {
 
   /**
    * Returns the greatest value present in {@code array}, using the same rules of comparison as
-   * {@link Math#max(double, double)}.
+   * {@code Math#max(double, double)}.
    *
    * @param array a <i>nonempty</i> array of {@code double} values
    * @return the value present in {@code array} that is greater than or equal to every other value
    *     in the array
    * @throws IllegalArgumentException if {@code array} is empty
    */
+  
   public static double max(double... array) {
     checkArgument(array.length > 0);
     double max = array[0];
@@ -306,8 +309,8 @@ public final class Doubles {
   }
 
   /**
-   * Returns a serializable converter object that converts between strings and doubles using {@link
-   * Double#valueOf} and {@link Double#toString()}.
+   * Returns a serializable converter object that converts between strings and doubles using {@code
+   * Double#valueOf} and {@code Double#toString()}.
    *
    * @since 16.0
    */
@@ -336,10 +339,10 @@ public final class Doubles {
 
   /**
    * Returns a string containing the supplied {@code double} values, converted to strings as
-   * specified by {@link Double#toString(double)}, and separated by {@code separator}. For example,
+   * specified by {@code Double#toString(double)}, and separated by {@code separator}. For example,
    * {@code join("-", 1.0, 2.0, 3.0)} returns the string {@code "1.0-2.0-3.0"}.
    *
-   * <p>Note that {@link Double#toString(double)} formats {@code double} differently in GWT
+   * <p>Note that {@code Double#toString(double)} formats {@code double} differently in GWT
    * sometimes. In the previous example, it returns the string {@code "1-2-3"}.
    *
    * @param separator the text that should appear between consecutive values in the resulting string
@@ -364,12 +367,12 @@ public final class Doubles {
   /**
    * Returns a comparator that compares two {@code double} arrays <a
    * href="http://en.wikipedia.org/wiki/Lexicographical_order">lexicographically</a>. That is, it
-   * compares, using {@link #compare(double, double)}), the first pair of values that follow any
+   * compares, using {@code #compare(double, double)}), the first pair of values that follow any
    * common prefix, or when one array is a prefix of the other, treats the shorter array as the
    * lesser. For example, {@code [] < [1.0] < [1.0, 2.0] < [2.0]}.
    *
-   * <p>The returned comparator is inconsistent with {@link Object#equals(Object)} (since arrays
-   * support only identity equality), but it is consistent with {@link Arrays#equals(double[],
+   * <p>The returned comparator is inconsistent with {@code Object#equals(Object)} (since arrays
+   * support only identity equality), but it is consistent with {@code Arrays#equals(double[],
    * double[])}.
    *
    * @since 2.0
@@ -402,7 +405,7 @@ public final class Doubles {
   /**
    * Sorts the elements of {@code array} in descending order.
    *
-   * <p>Note that this method uses the total order imposed by {@link Double#compare}, which treats
+   * <p>Note that this method uses the total order imposed by {@code Double#compare}, which treats
    * all NaN values as equal and 0.0 as greater than -0.0.
    *
    * @since 23.1
@@ -416,7 +419,7 @@ public final class Doubles {
    * Sorts the elements of {@code array} between {@code fromIndex} inclusive and {@code toIndex}
    * exclusive in descending order.
    *
-   * <p>Note that this method uses the total order imposed by {@link Double#compare}, which treats
+   * <p>Note that this method uses the total order imposed by {@code Double#compare}, which treats
    * all NaN values as equal and 0.0 as greater than -0.0.
    *
    * @since 23.1
@@ -511,7 +514,7 @@ public final class Doubles {
 
   /**
    * Returns an array containing each value of {@code collection}, converted to a {@code double}
-   * value in the manner of {@link Number#doubleValue}.
+   * value in the manner of {@code Number#doubleValue}.
    *
    * <p>Elements are copied from the argument collection as if by {@code collection.toArray()}.
    * Calling this method is as thread-safe as calling that method.
@@ -538,9 +541,9 @@ public final class Doubles {
   }
 
   /**
-   * Returns a fixed-size list backed by the specified array, similar to {@link
-   * Arrays#asList(Object[])}. The list supports {@link List#set(int, Object)}, but any attempt to
-   * set a value to {@code null} will result in a {@link NullPointerException}.
+   * Returns a fixed-size list backed by the specified array, similar to {@code
+   * Arrays#asList(Object[])}. The list supports {@code List#set(int, Object)}, but any attempt to
+   * set a value to {@code null} will result in a {@code NullPointerException}.
    *
    * <p>The returned list maintains the values, but not the identities, of {@code Double} objects
    * written to or read from it. For example, whether {@code list.get(0) == list.get(0)} is true for
@@ -551,8 +554,8 @@ public final class Doubles {
    *
    * <p>The returned list is serializable.
    *
-   * <p><b>Note:</b> when possible, you should represent your data as an {@link
-   * ImmutableDoubleArray} instead, which has an {@link ImmutableDoubleArray#asList asList} view.
+   * <p><b>Note:</b> when possible, you should represent your data as an {@code
+   * ImmutableDoubleArray} instead, which has an {@code ImmutableDoubleArray#asList asList} view.
    *
    * @param backingArray the array to back the list
    * @return a list view of the array
@@ -699,14 +702,16 @@ public final class Doubles {
   }
 
   /**
-   * This is adapted from the regex suggested by {@link Double#valueOf(String)} for prevalidating
+   * This is adapted from the regex suggested by {@code Double#valueOf(String)} for prevalidating
    * inputs. All valid inputs must pass this regex, but it's semantically fine if not all inputs
    * that pass this regex are valid -- only a performance hit is incurred, not a semantics bug.
    */
+  // regular expressions
   static final
   java.util.regex.Pattern
       FLOATING_POINT_PATTERN = fpPattern();
 
+  // regular expressions
   private static
   java.util.regex.Pattern
       fpPattern() {
@@ -734,8 +739,8 @@ public final class Doubles {
    * Parses the specified string as a double-precision floating point value. The ASCII character
    * {@code '-'} (<code>'&#92;u002D'</code>) is recognized as the minus sign.
    *
-   * <p>Unlike {@link Double#parseDouble(String)}, this method returns {@code null} instead of
-   * throwing an exception if parsing fails. Valid inputs are exactly those accepted by {@link
+   * <p>Unlike {@code Double#parseDouble(String)}, this method returns {@code null} instead of
+   * throwing an exception if parsing fails. Valid inputs are exactly those accepted by {@code
    * Double#valueOf(String)}, except that leading and trailing whitespace is not permitted.
    *
    * <p>This implementation is likely to be faster than {@code Double.parseDouble} if many failures
@@ -747,6 +752,7 @@ public final class Doubles {
    * @throws NullPointerException if {@code string} is {@code null}
    * @since 14.0
    */
+  // regular expressions
   @CheckForNull
   public static Double tryParse(String string) {
     if (FLOATING_POINT_PATTERN.matcher(string).matches()) {

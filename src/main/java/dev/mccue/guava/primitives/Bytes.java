@@ -30,9 +30,9 @@ import dev.mccue.jsr305.CheckForNull;
 
 /**
  * Static utility methods pertaining to {@code byte} primitives, that are not already found in
- * either {@link Byte} or {@link Arrays}, <i>and interpret bytes as neither signed nor unsigned</i>.
- * The methods which specifically treat bytes as signed or unsigned are found in {@link SignedBytes}
- * and {@link UnsignedBytes}.
+ * either {@code Byte} or {@code Arrays}, <i>and interpret bytes as neither signed nor unsigned</i>.
+ * The methods which specifically treat bytes as signed or unsigned are found in {@code SignedBytes}
+ * and {@code UnsignedBytes}.
  *
  * <p>See the Guava User Guide article on <a
  * href="https://github.com/google/guava/wiki/PrimitivesExplained">primitive utilities</a>.
@@ -50,7 +50,7 @@ public final class Bytes {
    * Returns a hash code for {@code value}; equal to the result of invoking {@code ((Byte)
    * value).hashCode()}.
    *
-   * <p><b>Java 8 users:</b> use {@link Byte#hashCode(byte)} instead.
+   * <p><b>Java 8 users:</b> use {@code Byte#hashCode(byte)} instead.
    *
    * @param value a primitive {@code byte} value
    * @return a hash code for the value
@@ -190,7 +190,7 @@ public final class Bytes {
 
   /**
    * Returns an array containing each value of {@code collection}, converted to a {@code byte} value
-   * in the manner of {@link Number#byteValue}.
+   * in the manner of {@code Number#byteValue}.
    *
    * <p>Elements are copied from the argument collection as if by {@code collection.toArray()}.
    * Calling this method is as thread-safe as calling that method.
@@ -217,9 +217,9 @@ public final class Bytes {
   }
 
   /**
-   * Returns a fixed-size list backed by the specified array, similar to {@link
-   * Arrays#asList(Object[])}. The list supports {@link List#set(int, Object)}, but any attempt to
-   * set a value to {@code null} will result in a {@link NullPointerException}.
+   * Returns a fixed-size list backed by the specified array, similar to {@code
+   * Arrays#asList(Object[])}. The list supports {@code List#set(int, Object)}, but any attempt to
+   * set a value to {@code null} will result in a {@code NullPointerException}.
    *
    * <p>The returned list maintains the values, but not the identities, of {@code Byte} objects
    * written to or read from it. For example, whether {@code list.get(0) == list.get(0)} is true for

@@ -35,7 +35,7 @@ import dev.mccue.jsr305.CheckForNull;
 
 /**
  * Static utility methods pertaining to {@code float} primitives, that are not already found in
- * either {@link Float} or {@link Arrays}.
+ * either {@code Float} or {@code Arrays}.
  *
  * <p>See the Guava User Guide article on <a
  * href="https://github.com/google/guava/wiki/PrimitivesExplained">primitive utilities</a>.
@@ -43,14 +43,15 @@ import dev.mccue.jsr305.CheckForNull;
  * @author Kevin Bourrillion
  * @since 1.0
  */
+
 @ElementTypesAreNonnullByDefault
-public final class Floats {
+public final class Floats extends FloatsMethodsForWeb {
   private Floats() {}
 
   /**
    * The number of bytes required to represent a primitive {@code float} value.
    *
-   * <p><b>Java 8 users:</b> use {@link Float#BYTES} instead.
+   * <p><b>Java 8 users:</b> use {@code Float#BYTES} instead.
    *
    * @since 10.0
    */
@@ -60,7 +61,7 @@ public final class Floats {
    * Returns a hash code for {@code value}; equal to the result of invoking {@code ((Float)
    * value).hashCode()}.
    *
-   * <p><b>Java 8 users:</b> use {@link Float#hashCode(float)} instead.
+   * <p><b>Java 8 users:</b> use {@code Float#hashCode(float)} instead.
    *
    * @param value a primitive {@code float} value
    * @return a hash code for the value
@@ -71,17 +72,17 @@ public final class Floats {
   }
 
   /**
-   * Compares the two specified {@code float} values using {@link Float#compare(float, float)}. You
+   * Compares the two specified {@code float} values using {@code Float#compare(float, float)}. You
    * may prefer to invoke that method directly; this method exists only for consistency with the
    * other utilities in this package.
    *
-   * <p><b>Note:</b> this method simply delegates to the JDK method {@link Float#compare}. It is
+   * <p><b>Note:</b> this method simply delegates to the JDK method {@code Float#compare}. It is
    * provided for consistency with the other primitive types, whose compare methods were not added
    * to the JDK until JDK 7.
    *
    * @param a the first {@code float} to compare
    * @param b the second {@code float} to compare
-   * @return the result of invoking {@link Float#compare(float, float)}
+   * @return the result of invoking {@code Float#compare(float, float)}
    */
   public static int compare(float a, float b) {
     return Float.compare(a, b);
@@ -91,7 +92,7 @@ public final class Floats {
    * Returns {@code true} if {@code value} represents a real number. This is equivalent to, but not
    * necessarily implemented as, {@code !(Float.isInfinite(value) || Float.isNaN(value))}.
    *
-   * <p><b>Java 8 users:</b> use {@link Float#isFinite(float)} instead.
+   * <p><b>Java 8 users:</b> use {@code Float#isFinite(float)} instead.
    *
    * @since 10.0
    */
@@ -194,7 +195,7 @@ public final class Floats {
   }
 
   /**
-   * Returns the least value present in {@code array}, using the same rules of comparison as {@link
+   * Returns the least value present in {@code array}, using the same rules of comparison as {@code
    * Math#min(float, float)}.
    *
    * @param array a <i>nonempty</i> array of {@code float} values
@@ -202,6 +203,7 @@ public final class Floats {
    *     the array
    * @throws IllegalArgumentException if {@code array} is empty
    */
+  
   public static float min(float... array) {
     checkArgument(array.length > 0);
     float min = array[0];
@@ -213,13 +215,14 @@ public final class Floats {
 
   /**
    * Returns the greatest value present in {@code array}, using the same rules of comparison as
-   * {@link Math#max(float, float)}.
+   * {@code Math#max(float, float)}.
    *
    * @param array a <i>nonempty</i> array of {@code float} values
    * @return the value present in {@code array} that is greater than or equal to every other value
    *     in the array
    * @throws IllegalArgumentException if {@code array} is empty
    */
+  
   public static float max(float... array) {
     checkArgument(array.length > 0);
     float max = array[0];
@@ -301,8 +304,8 @@ public final class Floats {
   }
 
   /**
-   * Returns a serializable converter object that converts between strings and floats using {@link
-   * Float#valueOf} and {@link Float#toString()}.
+   * Returns a serializable converter object that converts between strings and floats using {@code
+   * Float#valueOf} and {@code Float#toString()}.
    *
    * @since 16.0
    */
@@ -331,10 +334,10 @@ public final class Floats {
 
   /**
    * Returns a string containing the supplied {@code float} values, converted to strings as
-   * specified by {@link Float#toString(float)}, and separated by {@code separator}. For example,
+   * specified by {@code Float#toString(float)}, and separated by {@code separator}. For example,
    * {@code join("-", 1.0f, 2.0f, 3.0f)} returns the string {@code "1.0-2.0-3.0"}.
    *
-   * <p>Note that {@link Float#toString(float)} formats {@code float} differently in GWT. In the
+   * <p>Note that {@code Float#toString(float)} formats {@code float} differently in GWT. In the
    * previous example, it returns the string {@code "1-2-3"}.
    *
    * @param separator the text that should appear between consecutive values in the resulting string
@@ -359,12 +362,12 @@ public final class Floats {
   /**
    * Returns a comparator that compares two {@code float} arrays <a
    * href="http://en.wikipedia.org/wiki/Lexicographical_order">lexicographically</a>. That is, it
-   * compares, using {@link #compare(float, float)}), the first pair of values that follow any
+   * compares, using {@code #compare(float, float)}), the first pair of values that follow any
    * common prefix, or when one array is a prefix of the other, treats the shorter array as the
    * lesser. For example, {@code [] < [1.0f] < [1.0f, 2.0f] < [2.0f]}.
    *
-   * <p>The returned comparator is inconsistent with {@link Object#equals(Object)} (since arrays
-   * support only identity equality), but it is consistent with {@link Arrays#equals(float[],
+   * <p>The returned comparator is inconsistent with {@code Object#equals(Object)} (since arrays
+   * support only identity equality), but it is consistent with {@code Arrays#equals(float[],
    * float[])}.
    *
    * @since 2.0
@@ -397,7 +400,7 @@ public final class Floats {
   /**
    * Sorts the elements of {@code array} in descending order.
    *
-   * <p>Note that this method uses the total order imposed by {@link Float#compare}, which treats
+   * <p>Note that this method uses the total order imposed by {@code Float#compare}, which treats
    * all NaN values as equal and 0.0 as greater than -0.0.
    *
    * @since 23.1
@@ -411,7 +414,7 @@ public final class Floats {
    * Sorts the elements of {@code array} between {@code fromIndex} inclusive and {@code toIndex}
    * exclusive in descending order.
    *
-   * <p>Note that this method uses the total order imposed by {@link Float#compare}, which treats
+   * <p>Note that this method uses the total order imposed by {@code Float#compare}, which treats
    * all NaN values as equal and 0.0 as greater than -0.0.
    *
    * @since 23.1
@@ -506,7 +509,7 @@ public final class Floats {
 
   /**
    * Returns an array containing each value of {@code collection}, converted to a {@code float}
-   * value in the manner of {@link Number#floatValue}.
+   * value in the manner of {@code Number#floatValue}.
    *
    * <p>Elements are copied from the argument collection as if by {@code collection.toArray()}.
    * Calling this method is as thread-safe as calling that method.
@@ -533,9 +536,9 @@ public final class Floats {
   }
 
   /**
-   * Returns a fixed-size list backed by the specified array, similar to {@link
-   * Arrays#asList(Object[])}. The list supports {@link List#set(int, Object)}, but any attempt to
-   * set a value to {@code null} will result in a {@link NullPointerException}.
+   * Returns a fixed-size list backed by the specified array, similar to {@code
+   * Arrays#asList(Object[])}. The list supports {@code List#set(int, Object)}, but any attempt to
+   * set a value to {@code null} will result in a {@code NullPointerException}.
    *
    * <p>The returned list maintains the values, but not the identities, of {@code Float} objects
    * written to or read from it. For example, whether {@code list.get(0) == list.get(0)} is true for
@@ -688,8 +691,8 @@ public final class Floats {
    * Parses the specified string as a single-precision floating point value. The ASCII character
    * {@code '-'} (<code>'&#92;u002D'</code>) is recognized as the minus sign.
    *
-   * <p>Unlike {@link Float#parseFloat(String)}, this method returns {@code null} instead of
-   * throwing an exception if parsing fails. Valid inputs are exactly those accepted by {@link
+   * <p>Unlike {@code Float#parseFloat(String)}, this method returns {@code null} instead of
+   * throwing an exception if parsing fails. Valid inputs are exactly those accepted by {@code
    * Float#valueOf(String)}, except that leading and trailing whitespace is not permitted.
    *
    * <p>This implementation is likely to be faster than {@code Float.parseFloat} if many failures
@@ -701,6 +704,7 @@ public final class Floats {
    * @throws NullPointerException if {@code string} is {@code null}
    * @since 14.0
    */
+  // regular expressions
   @CheckForNull
   public static Float tryParse(String string) {
     if (Doubles.FLOATING_POINT_PATTERN.matcher(string).matches()) {

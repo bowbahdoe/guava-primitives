@@ -34,7 +34,7 @@ import dev.mccue.jsr305.CheckForNull;
 
 /**
  * Static utility methods pertaining to {@code long} primitives, that are not already found in
- * either {@link Long} or {@link Arrays}.
+ * either {@code Long} or {@code Arrays}.
  *
  * <p>See the Guava User Guide article on <a
  * href="https://github.com/google/guava/wiki/PrimitivesExplained">primitive utilities</a>.
@@ -49,7 +49,7 @@ public final class Longs {
   /**
    * The number of bytes required to represent a primitive {@code long} value.
    *
-   * <p><b>Java 8 users:</b> use {@link Long#BYTES} instead.
+   * <p><b>Java 8 users:</b> use {@code Long#BYTES} instead.
    */
   public static final int BYTES = Long.SIZE / Byte.SIZE;
 
@@ -64,11 +64,11 @@ public final class Longs {
    * Returns a hash code for {@code value}; equal to the result of invoking {@code ((Long)
    * value).hashCode()}.
    *
-   * <p>This method always return the value specified by {@link Long#hashCode()} in java, which
-   * might be different from {@code ((Long) value).hashCode()} in GWT because {@link
+   * <p>This method always return the value specified by {@code Long#hashCode()} in java, which
+   * might be different from {@code ((Long) value).hashCode()} in GWT because {@code
    * Long#hashCode()} in GWT does not obey the JRE contract.
    *
-   * <p><b>Java 8 users:</b> use {@link Long#hashCode(long)} instead.
+   * <p><b>Java 8 users:</b> use {@code Long#hashCode(long)} instead.
    *
    * @param value a primitive {@code long} value
    * @return a hash code for the value
@@ -82,7 +82,7 @@ public final class Longs {
    * that of {@code ((Long) a).compareTo(b)}.
    *
    * <p><b>Note for Java 7 and later:</b> this method should be treated as deprecated; use the
-   * equivalent {@link Long#compare} method instead.
+   * equivalent {@code Long#compare} method instead.
    *
    * @param a the first {@code long} to compare
    * @param b the second {@code long} to compare
@@ -276,7 +276,7 @@ public final class Longs {
    * 0x18, 0x19}}.
    *
    * <p>If you need to convert and concatenate several values (possibly even of different types),
-   * use a shared {@link java.nio.ByteBuffer} instance, or use {@code
+   * use a shared {@code java.nio.ByteBuffer} instance, or use {@code
    * dev.mccue.guava.io.ByteStreams#newDataOutput()} to get a growable buffer.
    */
   public static byte[] toByteArray(long value) {
@@ -296,7 +296,7 @@ public final class Longs {
    * input byte array {@code {0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19}} would yield the
    * {@code long} value {@code 0x1213141516171819L}.
    *
-   * <p>Arguably, it's preferable to use {@link java.nio.ByteBuffer}; that library exposes much more
+   * <p>Arguably, it's preferable to use {@code java.nio.ByteBuffer}; that library exposes much more
    * flexibility at little cost in readability.
    *
    * @throws IllegalArgumentException if {@code bytes} has fewer than 8 elements
@@ -356,12 +356,12 @@ public final class Longs {
    * Parses the specified string as a signed decimal long value. The ASCII character {@code '-'} (
    * <code>'&#92;u002D'</code>) is recognized as the minus sign.
    *
-   * <p>Unlike {@link Long#parseLong(String)}, this method returns {@code null} instead of throwing
+   * <p>Unlike {@code Long#parseLong(String)}, this method returns {@code null} instead of throwing
    * an exception if parsing fails. Additionally, this method only accepts ASCII digits, and returns
    * {@code null} if non-ASCII digits are present in the string.
    *
    * <p>Note that strings prefixed with ASCII {@code '+'} are rejected, even under JDK 7, despite
-   * the change to {@link Long#parseLong(String)} for that version.
+   * the change to {@code Long#parseLong(String)} for that version.
    *
    * @param string the string representation of a long value
    * @return the long value represented by {@code string}, or {@code null} if {@code string} has a
@@ -378,12 +378,12 @@ public final class Longs {
    * Parses the specified string as a signed long value using the specified radix. The ASCII
    * character {@code '-'} (<code>'&#92;u002D'</code>) is recognized as the minus sign.
    *
-   * <p>Unlike {@link Long#parseLong(String, int)}, this method returns {@code null} instead of
+   * <p>Unlike {@code Long#parseLong(String, int)}, this method returns {@code null} instead of
    * throwing an exception if parsing fails. Additionally, this method only accepts ASCII digits,
    * and returns {@code null} if non-ASCII digits are present in the string.
    *
    * <p>Note that strings prefixed with ASCII {@code '+'} are rejected, even under JDK 7, despite
-   * the change to {@link Long#parseLong(String, int)} for that version.
+   * the change to {@code Long#parseLong(String, int)} for that version.
    *
    * @param string the string representation of a long value
    * @param radix the radix to use when parsing
@@ -463,11 +463,11 @@ public final class Longs {
   }
 
   /**
-   * Returns a serializable converter object that converts between strings and longs using {@link
-   * Long#decode} and {@link Long#toString()}. The returned converter throws {@link
+   * Returns a serializable converter object that converts between strings and longs using {@code
+   * Long#decode} and {@code Long#toString()}. The returned converter throws {@code
    * NumberFormatException} if the input string is invalid.
    *
-   * <p><b>Warning:</b> please see {@link Long#decode} to understand exactly how strings are parsed.
+   * <p><b>Warning:</b> please see {@code Long#decode} to understand exactly how strings are parsed.
    * For example, the string {@code "0123"} is treated as <i>octal</i> and converted to the value
    * {@code 83L}.
    *
@@ -522,12 +522,12 @@ public final class Longs {
   /**
    * Returns a comparator that compares two {@code long} arrays <a
    * href="http://en.wikipedia.org/wiki/Lexicographical_order">lexicographically</a>. That is, it
-   * compares, using {@link #compare(long, long)}), the first pair of values that follow any common
+   * compares, using {@code #compare(long, long)}), the first pair of values that follow any common
    * prefix, or when one array is a prefix of the other, treats the shorter array as the lesser. For
    * example, {@code [] < [1L] < [1L, 2L] < [2L]}.
    *
-   * <p>The returned comparator is inconsistent with {@link Object#equals(Object)} (since arrays
-   * support only identity equality), but it is consistent with {@link Arrays#equals(long[],
+   * <p>The returned comparator is inconsistent with {@code Object#equals(Object)} (since arrays
+   * support only identity equality), but it is consistent with {@code Arrays#equals(long[],
    * long[])}.
    *
    * @since 2.0
@@ -663,7 +663,7 @@ public final class Longs {
 
   /**
    * Returns an array containing each value of {@code collection}, converted to a {@code long} value
-   * in the manner of {@link Number#longValue}.
+   * in the manner of {@code Number#longValue}.
    *
    * <p>Elements are copied from the argument collection as if by {@code collection.toArray()}.
    * Calling this method is as thread-safe as calling that method.
@@ -690,9 +690,9 @@ public final class Longs {
   }
 
   /**
-   * Returns a fixed-size list backed by the specified array, similar to {@link
-   * Arrays#asList(Object[])}. The list supports {@link List#set(int, Object)}, but any attempt to
-   * set a value to {@code null} will result in a {@link NullPointerException}.
+   * Returns a fixed-size list backed by the specified array, similar to {@code
+   * Arrays#asList(Object[])}. The list supports {@code List#set(int, Object)}, but any attempt to
+   * set a value to {@code null} will result in a {@code NullPointerException}.
    *
    * <p>The returned list maintains the values, but not the identities, of {@code Long} objects
    * written to or read from it. For example, whether {@code list.get(0) == list.get(0)} is true for
@@ -700,8 +700,8 @@ public final class Longs {
    *
    * <p>The returned list is serializable.
    *
-   * <p><b>Note:</b> when possible, you should represent your data as an {@link ImmutableLongArray}
-   * instead, which has an {@link ImmutableLongArray#asList asList} view.
+   * <p><b>Note:</b> when possible, you should represent your data as an {@code ImmutableLongArray}
+   * instead, which has an {@code ImmutableLongArray#asList asList} view.
    *
    * @param backingArray the array to back the list
    * @return a list view of the array

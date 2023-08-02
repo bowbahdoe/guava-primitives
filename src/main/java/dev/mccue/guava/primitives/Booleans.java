@@ -31,7 +31,7 @@ import dev.mccue.jsr305.CheckForNull;
 
 /**
  * Static utility methods pertaining to {@code boolean} primitives, that are not already found in
- * either {@link Boolean} or {@link Arrays}.
+ * either {@code Boolean} or {@code Arrays}.
  *
  * <p>See the Guava User Guide article on <a
  * href="https://github.com/google/guava/wiki/PrimitivesExplained">primitive utilities</a>.
@@ -97,7 +97,7 @@ public final class Booleans {
    * Returns a hash code for {@code value}; equal to the result of invoking {@code ((Boolean)
    * value).hashCode()}.
    *
-   * <p><b>Java 8 users:</b> use {@link Boolean#hashCode(boolean)} instead.
+   * <p><b>Java 8 users:</b> use {@code Boolean#hashCode(boolean)} instead.
    *
    * @param value a primitive {@code boolean} value
    * @return a hash code for the value
@@ -112,7 +112,7 @@ public final class Booleans {
    * {@code ((Boolean) a).compareTo(b)}.
    *
    * <p><b>Note for Java 7 and later:</b> this method should be treated as deprecated; use the
-   * equivalent {@link Boolean#compare} method instead.
+   * equivalent {@code Boolean#compare} method instead.
    *
    * @param a the first {@code boolean} to compare
    * @param b the second {@code boolean} to compare
@@ -126,7 +126,7 @@ public final class Booleans {
   /**
    * Returns {@code true} if {@code target} is present as an element anywhere in {@code array}.
    *
-   * <p><b>Note:</b> consider representing the array as a {@link java.util.BitSet} instead,
+   * <p><b>Note:</b> consider representing the array as a {@code java.util.BitSet} instead,
    * replacing {@code Booleans.contains(array, true)} with {@code !bitSet.isEmpty()} and {@code
    * Booleans.contains(array, false)} with {@code bitSet.nextClearBit(0) == sizeOfBitSet}.
    *
@@ -146,8 +146,8 @@ public final class Booleans {
   /**
    * Returns the index of the first appearance of the value {@code target} in {@code array}.
    *
-   * <p><b>Note:</b> consider representing the array as a {@link java.util.BitSet} instead, and
-   * using {@link java.util.BitSet#nextSetBit(int)} or {@link java.util.BitSet#nextClearBit(int)}.
+   * <p><b>Note:</b> consider representing the array as a {@code java.util.BitSet} instead, and
+   * using {@code java.util.BitSet#nextSetBit(int)} or {@code java.util.BitSet#nextClearBit(int)}.
    *
    * @param array an array of {@code boolean} values, possibly empty
    * @param target a primitive {@code boolean} value
@@ -287,12 +287,12 @@ public final class Booleans {
   /**
    * Returns a comparator that compares two {@code boolean} arrays <a
    * href="http://en.wikipedia.org/wiki/Lexicographical_order">lexicographically</a>. That is, it
-   * compares, using {@link #compare(boolean, boolean)}), the first pair of values that follow any
+   * compares, using {@code #compare(boolean, boolean)}), the first pair of values that follow any
    * common prefix, or when one array is a prefix of the other, treats the shorter array as the
    * lesser. For example, {@code [] < [false] < [false, true] < [true]}.
    *
-   * <p>The returned comparator is inconsistent with {@link Object#equals(Object)} (since arrays
-   * support only identity equality), but it is consistent with {@link Arrays#equals(boolean[],
+   * <p>The returned comparator is inconsistent with {@code Object#equals(Object)} (since arrays
+   * support only identity equality), but it is consistent with {@code Arrays#equals(boolean[],
    * boolean[])}.
    *
    * @since 2.0
@@ -329,7 +329,7 @@ public final class Booleans {
    * <p>Elements are copied from the argument collection as if by {@code collection.toArray()}.
    * Calling this method is as thread-safe as calling that method.
    *
-   * <p><b>Note:</b> consider representing the collection as a {@link java.util.BitSet} instead.
+   * <p><b>Note:</b> consider representing the collection as a {@code java.util.BitSet} instead.
    *
    * @param collection a collection of {@code Boolean} objects
    * @return an array containing the same values as {@code collection}, in the same order, converted
@@ -352,9 +352,9 @@ public final class Booleans {
   }
 
   /**
-   * Returns a fixed-size list backed by the specified array, similar to {@link
-   * Arrays#asList(Object[])}. The list supports {@link List#set(int, Object)}, but any attempt to
-   * set a value to {@code null} will result in a {@link NullPointerException}.
+   * Returns a fixed-size list backed by the specified array, similar to {@code
+   * Arrays#asList(Object[])}. The list supports {@code List#set(int, Object)}, but any attempt to
+   * set a value to {@code null} will result in a {@code NullPointerException}.
    *
    * <p>There are at most two distinct objects in this list, {@code (Boolean) true} and {@code
    * (Boolean) false}. Java guarantees that those are always represented by the same objects.

@@ -26,7 +26,7 @@ import dev.mccue.jsr305.CheckForNull;
  * A wrapper class for unsigned {@code long} values, supporting arithmetic operations.
  *
  * <p>In some cases, when speed is more important than code readability, it may be faster simply to
- * treat primitive {@code long} values as unsigned, using the methods from {@link UnsignedLongs}.
+ * treat primitive {@code long} values as unsigned, using the methods from {@code UnsignedLongs}.
  *
  * <p>See the Guava User Guide article on <a
  * href="https://github.com/google/guava/wiki/PrimitivesExplained#unsigned-support">unsigned
@@ -36,6 +36,7 @@ import dev.mccue.jsr305.CheckForNull;
  * @author Colin Evans
  * @since 11.0
  */
+
 @ElementTypesAreNonnullByDefault
 public final class UnsignedLong extends Number implements Comparable<UnsignedLong>, Serializable {
 
@@ -59,7 +60,7 @@ public final class UnsignedLong extends Number implements Comparable<UnsignedLon
    * <p>If the argument is nonnegative, the returned result will be equal to {@code bits},
    * otherwise, the result will be equal to {@code 2^64 + bits}.
    *
-   * <p>To represent decimal constants less than {@code 2^63}, consider {@link #valueOf(long)}
+   * <p>To represent decimal constants less than {@code 2^63}, consider {@code #valueOf(long)}
    * instead.
    *
    * @since 14.0
@@ -83,7 +84,7 @@ public final class UnsignedLong extends Number implements Comparable<UnsignedLon
 
   /**
    * Returns a {@code UnsignedLong} representing the same value as the specified {@code BigInteger}.
-   * This is the inverse operation of {@link #bigIntegerValue()}.
+   * This is the inverse operation of {@code #bigIntegerValue()}.
    *
    * @throws IllegalArgumentException if {@code value} is negative or {@code value >= 2^64}
    */
@@ -114,7 +115,7 @@ public final class UnsignedLong extends Number implements Comparable<UnsignedLon
    * unsigned {@code long} value in the specified radix.
    *
    * @throws NumberFormatException if the string does not contain a parsable unsigned {@code long}
-   *     value, or {@code radix} is not between {@link Character#MIN_RADIX} and {@link
+   *     value, or {@code radix} is not between {@code Character#MIN_RADIX} and {@code
    *     Character#MAX_RADIX}
    */
   @CanIgnoreReturnValue
@@ -178,7 +179,7 @@ public final class UnsignedLong extends Number implements Comparable<UnsignedLon
 
   /**
    * Returns the value of this {@code UnsignedLong} as a {@code long}. This is an inverse operation
-   * to {@link #fromLongBits}.
+   * to {@code #fromLongBits}.
    *
    * <p>Note that if this {@code UnsignedLong} holds a value {@code >= 2^63}, the returned value
    * will be equal to {@code this - 2^64}.
@@ -219,7 +220,7 @@ public final class UnsignedLong extends Number implements Comparable<UnsignedLon
     return (double) ((value >>> 1) | (value & 1)) * 2.0;
   }
 
-  /** Returns the value of this {@code UnsignedLong} as a {@link BigInteger}. */
+  /** Returns the value of this {@code UnsignedLong} as a {@code BigInteger}. */
   public BigInteger bigIntegerValue() {
     BigInteger bigInt = BigInteger.valueOf(value & UNSIGNED_MASK);
     if (value < 0) {

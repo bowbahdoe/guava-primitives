@@ -31,7 +31,7 @@ import dev.mccue.jsr305.CheckForNull;
 
 /**
  * Static utility methods pertaining to {@code char} primitives, that are not already found in
- * either {@link Character} or {@link Arrays}.
+ * either {@code Character} or {@code Arrays}.
  *
  * <p>All the operations in this class treat {@code char} values strictly numerically; they are
  * neither Unicode-aware nor locale-dependent.
@@ -42,6 +42,7 @@ import dev.mccue.jsr305.CheckForNull;
  * @author Kevin Bourrillion
  * @since 1.0
  */
+
 @ElementTypesAreNonnullByDefault
 public final class Chars {
   private Chars() {}
@@ -49,7 +50,7 @@ public final class Chars {
   /**
    * The number of bytes required to represent a primitive {@code char} value.
    *
-   * <p><b>Java 8 users:</b> use {@link Character#BYTES} instead.
+   * <p><b>Java 8 users:</b> use {@code Character#BYTES} instead.
    */
   public static final int BYTES = Character.SIZE / Byte.SIZE;
 
@@ -57,7 +58,7 @@ public final class Chars {
    * Returns a hash code for {@code value}; equal to the result of invoking {@code ((Character)
    * value).hashCode()}.
    *
-   * <p><b>Java 8 users:</b> use {@link Character#hashCode(char)} instead.
+   * <p><b>Java 8 users:</b> use {@code Character#hashCode(char)} instead.
    *
    * @param value a primitive {@code char} value
    * @return a hash code for the value
@@ -71,8 +72,8 @@ public final class Chars {
    *
    * @param value any value in the range of the {@code char} type
    * @return the {@code char} value that equals {@code value}
-   * @throws IllegalArgumentException if {@code value} is greater than {@link Character#MAX_VALUE}
-   *     or less than {@link Character#MIN_VALUE}
+   * @throws IllegalArgumentException if {@code value} is greater than {@code Character#MAX_VALUE}
+   *     or less than {@code Character#MIN_VALUE}
    */
   public static char checkedCast(long value) {
     char result = (char) value;
@@ -85,7 +86,7 @@ public final class Chars {
    *
    * @param value any {@code long} value
    * @return the same value cast to {@code char} if it is in the range of the {@code char} type,
-   *     {@link Character#MAX_VALUE} if it is too large, or {@link Character#MIN_VALUE} if it is too
+   *     {@code Character#MAX_VALUE} if it is too large, or {@code Character#MIN_VALUE} if it is too
    *     small
    */
   public static char saturatedCast(long value) {
@@ -103,7 +104,7 @@ public final class Chars {
    * that of {@code ((Character) a).compareTo(b)}.
    *
    * <p><b>Note for Java 7 and later:</b> this method should be treated as deprecated; use the
-   * equivalent {@link Character#compare} method instead.
+   * equivalent {@code Character#compare} method instead.
    *
    * @param a the first {@code char} to compare
    * @param b the second {@code char} to compare
@@ -286,9 +287,10 @@ public final class Chars {
    * '\\u5432'} would yield the byte array {@code {0x54, 0x32}}.
    *
    * <p>If you need to convert and concatenate several values (possibly even of different types),
-   * use a shared {@link java.nio.ByteBuffer} instance, or use {@code
+   * use a shared {@code java.nio.ByteBuffer} instance, or use {@code
    * dev.mccue.guava.io.ByteStreams#newDataOutput()} to get a growable buffer.
    */
+  // doesn't work
   public static byte[] toByteArray(char value) {
     return new byte[] {(byte) (value >> 8), (byte) value};
   }
@@ -298,11 +300,12 @@ public final class Chars {
    * of {@code bytes}; equivalent to {@code ByteBuffer.wrap(bytes).getChar()}. For example, the
    * input byte array {@code {0x54, 0x32}} would yield the {@code char} value {@code '\\u5432'}.
    *
-   * <p>Arguably, it's preferable to use {@link java.nio.ByteBuffer}; that library exposes much more
+   * <p>Arguably, it's preferable to use {@code java.nio.ByteBuffer}; that library exposes much more
    * flexibility at little cost in readability.
    *
    * @throws IllegalArgumentException if {@code bytes} has fewer than 2 elements
    */
+  // doesn't work
   public static char fromByteArray(byte[] bytes) {
     checkArgument(bytes.length >= BYTES, "array too small: %s < %s", bytes.length, BYTES);
     return fromBytes(bytes[0], bytes[1]);
@@ -314,6 +317,7 @@ public final class Chars {
    *
    * @since 7.0
    */
+  // doesn't work
   public static char fromBytes(byte b1, byte b2) {
     return (char) ((b1 << 8) | (b2 & 0xFF));
   }
@@ -364,12 +368,12 @@ public final class Chars {
    * Returns a comparator that compares two {@code char} arrays <a
    * href="http://en.wikipedia.org/wiki/Lexicographical_order">lexicographically</a>; not advisable
    * for sorting user-visible strings as the ordering may not match the conventions of the user's
-   * locale. That is, it compares, using {@link #compare(char, char)}), the first pair of values
+   * locale. That is, it compares, using {@code #compare(char, char)}), the first pair of values
    * that follow any common prefix, or when one array is a prefix of the other, treats the shorter
    * array as the lesser. For example, {@code [] < ['a'] < ['a', 'b'] < ['b']}.
    *
-   * <p>The returned comparator is inconsistent with {@link Object#equals(Object)} (since arrays
-   * support only identity equality), but it is consistent with {@link Arrays#equals(char[],
+   * <p>The returned comparator is inconsistent with {@code Object#equals(Object)} (since arrays
+   * support only identity equality), but it is consistent with {@code Arrays#equals(char[],
    * char[])}.
    *
    * @since 2.0
@@ -531,9 +535,9 @@ public final class Chars {
   }
 
   /**
-   * Returns a fixed-size list backed by the specified array, similar to {@link
-   * Arrays#asList(Object[])}. The list supports {@link List#set(int, Object)}, but any attempt to
-   * set a value to {@code null} will result in a {@link NullPointerException}.
+   * Returns a fixed-size list backed by the specified array, similar to {@code
+   * Arrays#asList(Object[])}. The list supports {@code List#set(int, Object)}, but any attempt to
+   * set a value to {@code null} will result in a {@code NullPointerException}.
    *
    * <p>The returned list maintains the values, but not the identities, of {@code Character} objects
    * written to or read from it. For example, whether {@code list.get(0) == list.get(0)} is true for

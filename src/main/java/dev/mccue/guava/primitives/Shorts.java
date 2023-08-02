@@ -32,7 +32,7 @@ import dev.mccue.jsr305.CheckForNull;
 
 /**
  * Static utility methods pertaining to {@code short} primitives, that are not already found in
- * either {@link Short} or {@link Arrays}.
+ * either {@code Short} or {@code Arrays}.
  *
  * <p>See the Guava User Guide article on <a
  * href="https://github.com/google/guava/wiki/PrimitivesExplained">primitive utilities</a>.
@@ -40,14 +40,15 @@ import dev.mccue.jsr305.CheckForNull;
  * @author Kevin Bourrillion
  * @since 1.0
  */
+
 @ElementTypesAreNonnullByDefault
-public final class Shorts {
+public final class Shorts extends ShortsMethodsForWeb {
   private Shorts() {}
 
   /**
    * The number of bytes required to represent a primitive {@code short} value.
    *
-   * <p><b>Java 8 users:</b> use {@link Short#BYTES} instead.
+   * <p><b>Java 8 users:</b> use {@code Short#BYTES} instead.
    */
   public static final int BYTES = Short.SIZE / Byte.SIZE;
 
@@ -62,7 +63,7 @@ public final class Shorts {
    * Returns a hash code for {@code value}; equal to the result of invoking {@code ((Short)
    * value).hashCode()}.
    *
-   * <p><b>Java 8 users:</b> use {@link Short#hashCode(short)} instead.
+   * <p><b>Java 8 users:</b> use {@code Short#hashCode(short)} instead.
    *
    * @param value a primitive {@code short} value
    * @return a hash code for the value
@@ -76,8 +77,8 @@ public final class Shorts {
    *
    * @param value any value in the range of the {@code short} type
    * @return the {@code short} value that equals {@code value}
-   * @throws IllegalArgumentException if {@code value} is greater than {@link Short#MAX_VALUE} or
-   *     less than {@link Short#MIN_VALUE}
+   * @throws IllegalArgumentException if {@code value} is greater than {@code Short#MAX_VALUE} or
+   *     less than {@code Short#MIN_VALUE}
    */
   public static short checkedCast(long value) {
     short result = (short) value;
@@ -90,7 +91,7 @@ public final class Shorts {
    *
    * @param value any {@code long} value
    * @return the same value cast to {@code short} if it is in the range of the {@code short} type,
-   *     {@link Short#MAX_VALUE} if it is too large, or {@link Short#MIN_VALUE} if it is too small
+   *     {@code Short#MAX_VALUE} if it is too large, or {@code Short#MIN_VALUE} if it is too small
    */
   public static short saturatedCast(long value) {
     if (value > Short.MAX_VALUE) {
@@ -107,7 +108,7 @@ public final class Shorts {
    * that of {@code ((Short) a).compareTo(b)}.
    *
    * <p><b>Note for Java 7 and later:</b> this method should be treated as deprecated; use the
-   * equivalent {@link Short#compare} method instead.
+   * equivalent {@code Short#compare} method instead.
    *
    * @param a the first {@code short} to compare
    * @param b the second {@code short} to compare
@@ -215,6 +216,7 @@ public final class Shorts {
    *     the array
    * @throws IllegalArgumentException if {@code array} is empty
    */
+  
   public static short min(short... array) {
     checkArgument(array.length > 0);
     short min = array[0];
@@ -234,6 +236,7 @@ public final class Shorts {
    *     in the array
    * @throws IllegalArgumentException if {@code array} is empty
    */
+  
   public static short max(short... array) {
     checkArgument(array.length > 0);
     short max = array[0];
@@ -291,9 +294,10 @@ public final class Shorts {
    * (short) 0x1234} would yield the byte array {@code {0x12, 0x34}}.
    *
    * <p>If you need to convert and concatenate several values (possibly even of different types),
-   * use a shared {@link java.nio.ByteBuffer} instance, or use {@code
+   * use a shared {@code java.nio.ByteBuffer} instance, or use {@code
    * dev.mccue.guava.io.ByteStreams#newDataOutput()} to get a growable buffer.
    */
+  // doesn't work
   public static byte[] toByteArray(short value) {
     return new byte[] {(byte) (value >> 8), (byte) value};
   }
@@ -303,11 +307,12 @@ public final class Shorts {
    * of {@code bytes}; equivalent to {@code ByteBuffer.wrap(bytes).getShort()}. For example, the
    * input byte array {@code {0x54, 0x32}} would yield the {@code short} value {@code 0x5432}.
    *
-   * <p>Arguably, it's preferable to use {@link java.nio.ByteBuffer}; that library exposes much more
+   * <p>Arguably, it's preferable to use {@code java.nio.ByteBuffer}; that library exposes much more
    * flexibility at little cost in readability.
    *
    * @throws IllegalArgumentException if {@code bytes} has fewer than 2 elements
    */
+  // doesn't work
   public static short fromByteArray(byte[] bytes) {
     checkArgument(bytes.length >= BYTES, "array too small: %s < %s", bytes.length, BYTES);
     return fromBytes(bytes[0], bytes[1]);
@@ -319,6 +324,7 @@ public final class Shorts {
    *
    * @since 7.0
    */
+  // doesn't work
   public static short fromBytes(byte b1, byte b2) {
     return (short) ((b1 << 8) | (b2 & 0xFF));
   }
@@ -350,11 +356,11 @@ public final class Shorts {
   }
 
   /**
-   * Returns a serializable converter object that converts between strings and shorts using {@link
-   * Short#decode} and {@link Short#toString()}. The returned converter throws {@link
+   * Returns a serializable converter object that converts between strings and shorts using {@code
+   * Short#decode} and {@code Short#toString()}. The returned converter throws {@code
    * NumberFormatException} if the input string is invalid.
    *
-   * <p><b>Warning:</b> please see {@link Short#decode} to understand exactly how strings are
+   * <p><b>Warning:</b> please see {@code Short#decode} to understand exactly how strings are
    * parsed. For example, the string {@code "0123"} is treated as <i>octal</i> and converted to the
    * value {@code 83}.
    *
@@ -410,12 +416,12 @@ public final class Shorts {
   /**
    * Returns a comparator that compares two {@code short} arrays <a
    * href="http://en.wikipedia.org/wiki/Lexicographical_order">lexicographically</a>. That is, it
-   * compares, using {@link #compare(short, short)}), the first pair of values that follow any
+   * compares, using {@code #compare(short, short)}), the first pair of values that follow any
    * common prefix, or when one array is a prefix of the other, treats the shorter array as the
    * lesser. For example, {@code [] < [(short) 1] < [(short) 1, (short) 2] < [(short) 2]}.
    *
-   * <p>The returned comparator is inconsistent with {@link Object#equals(Object)} (since arrays
-   * support only identity equality), but it is consistent with {@link Arrays#equals(short[],
+   * <p>The returned comparator is inconsistent with {@code Object#equals(Object)} (since arrays
+   * support only identity equality), but it is consistent with {@code Arrays#equals(short[],
    * short[])}.
    *
    * @since 2.0
@@ -551,7 +557,7 @@ public final class Shorts {
 
   /**
    * Returns an array containing each value of {@code collection}, converted to a {@code short}
-   * value in the manner of {@link Number#shortValue}.
+   * value in the manner of {@code Number#shortValue}.
    *
    * <p>Elements are copied from the argument collection as if by {@code collection.toArray()}.
    * Calling this method is as thread-safe as calling that method.
@@ -578,9 +584,9 @@ public final class Shorts {
   }
 
   /**
-   * Returns a fixed-size list backed by the specified array, similar to {@link
-   * Arrays#asList(Object[])}. The list supports {@link List#set(int, Object)}, but any attempt to
-   * set a value to {@code null} will result in a {@link NullPointerException}.
+   * Returns a fixed-size list backed by the specified array, similar to {@code
+   * Arrays#asList(Object[])}. The list supports {@code List#set(int, Object)}, but any attempt to
+   * set a value to {@code null} will result in a {@code NullPointerException}.
    *
    * <p>The returned list maintains the values, but not the identities, of {@code Short} objects
    * written to or read from it. For example, whether {@code list.get(0) == list.get(0)} is true for

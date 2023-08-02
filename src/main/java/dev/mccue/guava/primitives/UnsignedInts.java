@@ -25,7 +25,7 @@ import java.util.Comparator;
 /**
  * Static utility methods pertaining to {@code int} primitives that interpret values as
  * <i>unsigned</i> (that is, any negative value {@code x} is treated as the positive value {@code
- * 2^32 + x}). The methods for which signedness is not an issue are in {@link Ints}, as well as
+ * 2^32 + x}). The methods for which signedness is not an issue are in {@code Ints}, as well as
  * signed versions of methods for which signedness is an issue.
  *
  * <p>In addition, this class provides several static methods for converting an {@code int} to a
@@ -33,7 +33,7 @@ import java.util.Comparator;
  * number.
  *
  * <p>Users of these utilities must be <i>extremely careful</i> not to mix up signed and unsigned
- * {@code int} values. When possible, it is recommended that the {@link UnsignedInteger} wrapper
+ * {@code int} values. When possible, it is recommended that the {@code UnsignedInteger} wrapper
  * class be used, at a small efficiency penalty, to enforce the distinction in the type system.
  *
  * <p>See the Guava User Guide article on <a
@@ -57,7 +57,7 @@ public final class UnsignedInts {
    * Compares the two specified {@code int} values, treating them as unsigned values between {@code
    * 0} and {@code 2^32 - 1} inclusive.
    *
-   * <p><b>Java 8 users:</b> use {@link Integer#compareUnsigned(int, int)} instead.
+   * <p><b>Java 8 users:</b> use {@code Integer#compareUnsigned(int, int)} instead.
    *
    * @param a the first unsigned {@code int} to compare
    * @param b the second unsigned {@code int} to compare
@@ -71,7 +71,7 @@ public final class UnsignedInts {
   /**
    * Returns the value of the given {@code int} as a {@code long}, when treated as unsigned.
    *
-   * <p><b>Java 8 users:</b> use {@link Integer#toUnsignedLong(int)} instead.
+   * <p><b>Java 8 users:</b> use {@code Integer#toUnsignedLong(int)} instead.
    */
   public static long toLong(int value) {
     return value & INT_MASK;
@@ -116,7 +116,7 @@ public final class UnsignedInts {
    *
    * @param array a <i>nonempty</i> array of unsigned {@code int} values
    * @return the value present in {@code array} that is less than or equal to every other value in
-   *     the array according to {@link #compare}
+   *     the array according to {@code #compare}
    * @throws IllegalArgumentException if {@code array} is empty
    */
   public static int min(int... array) {
@@ -136,7 +136,7 @@ public final class UnsignedInts {
    *
    * @param array a <i>nonempty</i> array of unsigned {@code int} values
    * @return the value present in {@code array} that is greater than or equal to every other value
-   *     in the array according to {@link #compare}
+   *     in the array according to {@code #compare}
    * @throws IllegalArgumentException if {@code array} is empty
    */
   public static int max(int... array) {
@@ -177,12 +177,12 @@ public final class UnsignedInts {
   /**
    * Returns a comparator that compares two arrays of unsigned {@code int} values <a
    * href="http://en.wikipedia.org/wiki/Lexicographical_order">lexicographically</a>. That is, it
-   * compares, using {@link #compare(int, int)}), the first pair of values that follow any common
+   * compares, using {@code #compare(int, int)}), the first pair of values that follow any common
    * prefix, or when one array is a prefix of the other, treats the shorter array as the lesser. For
    * example, {@code [] < [1] < [1, 2] < [2] < [1 << 31]}.
    *
-   * <p>The returned comparator is inconsistent with {@link Object#equals(Object)} (since arrays
-   * support only identity equality), but it is consistent with {@link Arrays#equals(int[], int[])}.
+   * <p>The returned comparator is inconsistent with {@code Object#equals(Object)} (since arrays
+   * support only identity equality), but it is consistent with {@code Arrays#equals(int[], int[])}.
    */
   public static Comparator<int[]> lexicographicalComparator() {
     return LexicographicalComparator.INSTANCE;
@@ -269,7 +269,7 @@ public final class UnsignedInts {
    * Returns dividend / divisor, where the dividend and divisor are treated as unsigned 32-bit
    * quantities.
    *
-   * <p><b>Java 8 users:</b> use {@link Integer#divideUnsigned(int, int)} instead.
+   * <p><b>Java 8 users:</b> use {@code Integer#divideUnsigned(int, int)} instead.
    *
    * @param dividend the dividend (numerator)
    * @param divisor the divisor (denominator)
@@ -283,7 +283,7 @@ public final class UnsignedInts {
    * Returns dividend % divisor, where the dividend and divisor are treated as unsigned 32-bit
    * quantities.
    *
-   * <p><b>Java 8 users:</b> use {@link Integer#remainderUnsigned(int, int)} instead.
+   * <p><b>Java 8 users:</b> use {@code Integer#remainderUnsigned(int, int)} instead.
    *
    * @param dividend the dividend (numerator)
    * @param divisor the divisor (denominator)
@@ -325,10 +325,10 @@ public final class UnsignedInts {
   /**
    * Returns the unsigned {@code int} value represented by the given decimal string.
    *
-   * <p><b>Java 8 users:</b> use {@link Integer#parseUnsignedInt(String)} instead.
+   * <p><b>Java 8 users:</b> use {@code Integer#parseUnsignedInt(String)} instead.
    *
    * @throws NumberFormatException if the string does not contain a valid unsigned {@code int} value
-   * @throws NullPointerException if {@code s} is null (in contrast to {@link
+   * @throws NullPointerException if {@code s} is null (in contrast to {@code
    *     Integer#parseInt(String)})
    */
   @CanIgnoreReturnValue
@@ -339,14 +339,14 @@ public final class UnsignedInts {
   /**
    * Returns the unsigned {@code int} value represented by a string with the given radix.
    *
-   * <p><b>Java 8 users:</b> use {@link Integer#parseUnsignedInt(String, int)} instead.
+   * <p><b>Java 8 users:</b> use {@code Integer#parseUnsignedInt(String, int)} instead.
    *
    * @param string the string containing the unsigned integer representation to be parsed.
-   * @param radix the radix to use while parsing {@code s}; must be between {@link
-   *     Character#MIN_RADIX} and {@link Character#MAX_RADIX}.
+   * @param radix the radix to use while parsing {@code s}; must be between {@code
+   *     Character#MIN_RADIX} and {@code Character#MAX_RADIX}.
    * @throws NumberFormatException if the string does not contain a valid unsigned {@code int}, or
    *     if supplied radix is invalid.
-   * @throws NullPointerException if {@code s} is null (in contrast to {@link
+   * @throws NullPointerException if {@code s} is null (in contrast to {@code
    *     Integer#parseInt(String)})
    */
   @CanIgnoreReturnValue
@@ -363,7 +363,7 @@ public final class UnsignedInts {
   /**
    * Returns a string representation of x, where x is treated as unsigned.
    *
-   * <p><b>Java 8 users:</b> use {@link Integer#toUnsignedString(int)} instead.
+   * <p><b>Java 8 users:</b> use {@code Integer#toUnsignedString(int)} instead.
    */
   public static String toString(int x) {
     return toString(x, 10);
@@ -373,12 +373,12 @@ public final class UnsignedInts {
    * Returns a string representation of {@code x} for the given radix, where {@code x} is treated as
    * unsigned.
    *
-   * <p><b>Java 8 users:</b> use {@link Integer#toUnsignedString(int, int)} instead.
+   * <p><b>Java 8 users:</b> use {@code Integer#toUnsignedString(int, int)} instead.
    *
    * @param x the value to convert to a string.
    * @param radix the radix to use while working with {@code x}
-   * @throws IllegalArgumentException if {@code radix} is not between {@link Character#MIN_RADIX}
-   *     and {@link Character#MAX_RADIX}.
+   * @throws IllegalArgumentException if {@code radix} is not between {@code Character#MIN_RADIX}
+   *     and {@code Character#MAX_RADIX}.
    */
   public static String toString(int x, int radix) {
     long asLong = x & INT_MASK;

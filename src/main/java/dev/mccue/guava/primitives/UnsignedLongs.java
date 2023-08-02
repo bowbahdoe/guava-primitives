@@ -26,7 +26,7 @@ import java.util.Comparator;
 /**
  * Static utility methods pertaining to {@code long} primitives that interpret values as
  * <i>unsigned</i> (that is, any negative value {@code x} is treated as the positive value {@code
- * 2^64 + x}). The methods for which signedness is not an issue are in {@link Longs}, as well as
+ * 2^64 + x}). The methods for which signedness is not an issue are in {@code Longs}, as well as
  * signed versions of methods for which signedness is an issue.
  *
  * <p>In addition, this class provides several static methods for converting a {@code long} to a
@@ -34,7 +34,7 @@ import java.util.Comparator;
  * number.
  *
  * <p>Users of these utilities must be <i>extremely careful</i> not to mix up signed and unsigned
- * {@code long} values. When possible, it is recommended that the {@link UnsignedLong} wrapper class
+ * {@code long} values. When possible, it is recommended that the {@code UnsignedLong} wrapper class
  * be used, at a small efficiency penalty, to enforce the distinction in the type system.
  *
  * <p>See the Guava User Guide article on <a
@@ -65,7 +65,7 @@ public final class UnsignedLongs {
    * Compares the two specified {@code long} values, treating them as unsigned values between {@code
    * 0} and {@code 2^64 - 1} inclusive.
    *
-   * <p><b>Java 8 users:</b> use {@link Long#compareUnsigned(long, long)} instead.
+   * <p><b>Java 8 users:</b> use {@code Long#compareUnsigned(long, long)} instead.
    *
    * @param a the first unsigned {@code long} to compare
    * @param b the second unsigned {@code long} to compare
@@ -81,7 +81,7 @@ public final class UnsignedLongs {
    *
    * @param array a <i>nonempty</i> array of unsigned {@code long} values
    * @return the value present in {@code array} that is less than or equal to every other value in
-   *     the array according to {@link #compare}
+   *     the array according to {@code #compare}
    * @throws IllegalArgumentException if {@code array} is empty
    */
   public static long min(long... array) {
@@ -101,7 +101,7 @@ public final class UnsignedLongs {
    *
    * @param array a <i>nonempty</i> array of unsigned {@code long} values
    * @return the value present in {@code array} that is greater than or equal to every other value
-   *     in the array according to {@link #compare}
+   *     in the array according to {@code #compare}
    * @throws IllegalArgumentException if {@code array} is empty
    */
   public static long max(long... array) {
@@ -142,12 +142,12 @@ public final class UnsignedLongs {
   /**
    * Returns a comparator that compares two arrays of unsigned {@code long} values <a
    * href="http://en.wikipedia.org/wiki/Lexicographical_order">lexicographically</a>. That is, it
-   * compares, using {@link #compare(long, long)}), the first pair of values that follow any common
+   * compares, using {@code #compare(long, long)}), the first pair of values that follow any common
    * prefix, or when one array is a prefix of the other, treats the shorter array as the lesser. For
    * example, {@code [] < [1L] < [1L, 2L] < [2L] < [1L << 63]}.
    *
-   * <p>The returned comparator is inconsistent with {@link Object#equals(Object)} (since arrays
-   * support only identity equality), but it is consistent with {@link Arrays#equals(long[],
+   * <p>The returned comparator is inconsistent with {@code Object#equals(Object)} (since arrays
+   * support only identity equality), but it is consistent with {@code Arrays#equals(long[],
    * long[])}.
    */
   public static Comparator<long[]> lexicographicalComparator() {
@@ -235,7 +235,7 @@ public final class UnsignedLongs {
    * Returns dividend / divisor, where the dividend and divisor are treated as unsigned 64-bit
    * quantities.
    *
-   * <p><b>Java 8 users:</b> use {@link Long#divideUnsigned(long, long)} instead.
+   * <p><b>Java 8 users:</b> use {@code Long#divideUnsigned(long, long)} instead.
    *
    * @param dividend the dividend (numerator)
    * @param divisor the divisor (denominator)
@@ -270,7 +270,7 @@ public final class UnsignedLongs {
    * Returns dividend % divisor, where the dividend and divisor are treated as unsigned 64-bit
    * quantities.
    *
-   * <p><b>Java 8 users:</b> use {@link Long#remainderUnsigned(long, long)} instead.
+   * <p><b>Java 8 users:</b> use {@code Long#remainderUnsigned(long, long)} instead.
    *
    * @param dividend the dividend (numerator)
    * @param divisor the divisor (denominator)
@@ -305,11 +305,11 @@ public final class UnsignedLongs {
   /**
    * Returns the unsigned {@code long} value represented by the given decimal string.
    *
-   * <p><b>Java 8 users:</b> use {@link Long#parseUnsignedLong(String)} instead.
+   * <p><b>Java 8 users:</b> use {@code Long#parseUnsignedLong(String)} instead.
    *
    * @throws NumberFormatException if the string does not contain a valid unsigned {@code long}
    *     value
-   * @throws NullPointerException if {@code string} is null (in contrast to {@link
+   * @throws NullPointerException if {@code string} is null (in contrast to {@code
    *     Long#parseLong(String)})
    */
   @CanIgnoreReturnValue
@@ -320,14 +320,14 @@ public final class UnsignedLongs {
   /**
    * Returns the unsigned {@code long} value represented by a string with the given radix.
    *
-   * <p><b>Java 8 users:</b> use {@link Long#parseUnsignedLong(String, int)} instead.
+   * <p><b>Java 8 users:</b> use {@code Long#parseUnsignedLong(String, int)} instead.
    *
    * @param string the string containing the unsigned {@code long} representation to be parsed.
    * @param radix the radix to use while parsing {@code string}
    * @throws NumberFormatException if the string does not contain a valid unsigned {@code long} with
-   *     the given radix, or if {@code radix} is not between {@link Character#MIN_RADIX} and {@link
+   *     the given radix, or if {@code radix} is not between {@code Character#MIN_RADIX} and {@code
    *     Character#MAX_RADIX}.
-   * @throws NullPointerException if {@code string} is null (in contrast to {@link
+   * @throws NullPointerException if {@code string} is null (in contrast to {@code
    *     Long#parseLong(String)})
    */
   @CanIgnoreReturnValue
@@ -433,7 +433,7 @@ public final class UnsignedLongs {
   /**
    * Returns a string representation of x, where x is treated as unsigned.
    *
-   * <p><b>Java 8 users:</b> use {@link Long#toUnsignedString(long)} instead.
+   * <p><b>Java 8 users:</b> use {@code Long#toUnsignedString(long)} instead.
    */
   public static String toString(long x) {
     return toString(x, 10);
@@ -443,12 +443,12 @@ public final class UnsignedLongs {
    * Returns a string representation of {@code x} for the given radix, where {@code x} is treated as
    * unsigned.
    *
-   * <p><b>Java 8 users:</b> use {@link Long#toUnsignedString(long, int)} instead.
+   * <p><b>Java 8 users:</b> use {@code Long#toUnsignedString(long, int)} instead.
    *
    * @param x the value to convert to a string.
    * @param radix the radix to use while working with {@code x}
-   * @throws IllegalArgumentException if {@code radix} is not between {@link Character#MIN_RADIX}
-   *     and {@link Character#MAX_RADIX}.
+   * @throws IllegalArgumentException if {@code radix} is not between {@code Character#MIN_RADIX}
+   *     and {@code Character#MAX_RADIX}.
    */
   public static String toString(long x, int radix) {
     checkArgument(
