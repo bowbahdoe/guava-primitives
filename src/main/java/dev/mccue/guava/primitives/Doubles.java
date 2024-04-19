@@ -53,7 +53,7 @@ public final class Doubles extends DoublesMethodsForWeb {
   /**
    * The number of bytes required to represent a primitive {@code double} value.
    *
-   * <p><b>Java 8 users:</b> use {@code Double#BYTES} instead.
+   * <p><b>Java 8+ users:</b> use {@code Double#BYTES} instead.
    *
    * @since 10.0
    */
@@ -63,7 +63,7 @@ public final class Doubles extends DoublesMethodsForWeb {
    * Returns a hash code for {@code value}; equal to the result of invoking {@code ((Double)
    * value).hashCode()}.
    *
-   * <p><b>Java 8 users:</b> use {@code Double#hashCode(double)} instead.
+   * <p><b>Java 8+ users:</b> use {@code Double#hashCode(double)} instead.
    *
    * @param value a primitive {@code double} value
    * @return a hash code for the value
@@ -97,7 +97,7 @@ public final class Doubles extends DoublesMethodsForWeb {
    * Returns {@code true} if {@code value} represents a real number. This is equivalent to, but not
    * necessarily implemented as, {@code !(Double.isInfinite(value) || Double.isNaN(value))}.
    *
-   * <p><b>Java 8 users:</b> use {@code Double#isFinite(double)} instead.
+   * <p><b>Java 8+ users:</b> use {@code Double#isFinite(double)} instead.
    *
    * @since 10.0
    */
@@ -284,7 +284,7 @@ public final class Doubles extends DoublesMethodsForWeb {
 
   private static final class DoubleConverter extends Converter<String, Double>
       implements Serializable {
-    static final DoubleConverter INSTANCE = new DoubleConverter();
+    static final Converter<String, Double> INSTANCE = new DoubleConverter();
 
     @Override
     protected Double doForward(String value) {
