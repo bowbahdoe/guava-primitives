@@ -23,6 +23,7 @@ import static java.lang.Float.NEGATIVE_INFINITY;
 import static java.lang.Float.POSITIVE_INFINITY;
 
 import dev.mccue.guava.base.Converter;
+import com.google.errorprone.annotations.InlineMe;
 import java.io.Serializable;
 import java.util.AbstractList;
 import java.util.Arrays;
@@ -84,6 +85,7 @@ public final class Floats extends FloatsMethodsForWeb {
    * @param b the second {@code float} to compare
    * @return the result of invoking {@code Float#compare(float, float)}
    */
+  @InlineMe(replacement = "Float.compare(a, b)")
   public static int compare(float a, float b) {
     return Float.compare(a, b);
   }
@@ -239,6 +241,8 @@ public final class Floats extends FloatsMethodsForWeb {
    * unchanged. If {@code value} is less than {@code min}, {@code min} is returned, and if {@code
    * value} is greater than {@code max}, {@code max} is returned.
    *
+   * <p><b>Java 21+ users:</b> Use {@code Math.clamp} instead.
+   *
    * @param value the {@code float} value to constrain
    * @param min the lower bound (inclusive) of the range to constrain {@code value} to
    * @param max the upper bound (inclusive) of the range to constrain {@code value} to
@@ -262,19 +266,29 @@ public final class Floats extends FloatsMethodsForWeb {
    *
    * @param arrays zero or more {@code float} arrays
    * @return a single array containing all the values from the source arrays, in order
+   * @throws IllegalArgumentException if the total number of elements in {@code arrays} does not fit
+   *     in an {@code int}
    */
   public static float[] concat(float[]... arrays) {
-    int length = 0;
+    long length = 0;
     for (float[] array : arrays) {
       length += array.length;
     }
-    float[] result = new float[length];
+    float[] result = new float[checkNoOverflow(length)];
     int pos = 0;
     for (float[] array : arrays) {
       System.arraycopy(array, 0, result, pos, array.length);
       pos += array.length;
     }
     return result;
+  }
+
+  private static int checkNoOverflow(long result) {
+    checkArgument(
+        result == (int) result,
+        "the total number of elements (%s) in the arrays must fit in an int",
+        result);
+    return (int) result;
   }
 
   private static final class FloatConverter extends Converter<String, Float>

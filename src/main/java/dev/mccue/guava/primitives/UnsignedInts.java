@@ -57,7 +57,8 @@ public final class UnsignedInts {
    * Compares the two specified {@code int} values, treating them as unsigned values between {@code
    * 0} and {@code 2^32 - 1} inclusive.
    *
-   * <p><b>Java 8+ users:</b> use {@code Integer#compareUnsigned(int, int)} instead.
+   * <p><b>Note:</b> this method is now unnecessary and should be treated as deprecated; use the
+   * equivalent {@code Integer#compareUnsigned(int, int)} method instead.
    *
    * @param a the first unsigned {@code int} to compare
    * @param b the second unsigned {@code int} to compare
@@ -192,6 +193,8 @@ public final class UnsignedInts {
     INSTANCE;
 
     @Override
+    // A call to bare "min" or "max" would resolve to our varargs method, not to any static import.
+    @SuppressWarnings("StaticImportPreferred")
     public int compare(int[] left, int[] right) {
       int minLength = Math.min(left.length, right.length);
       for (int i = 0; i < minLength; i++) {

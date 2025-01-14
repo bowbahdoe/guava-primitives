@@ -20,7 +20,11 @@ import static dev.mccue.guava.base.Preconditions.checkPositionIndexes;
 import static java.util.Objects.requireNonNull;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
+import java.lang.reflect.Field;
 import java.nio.ByteOrder;
+import java.security.AccessController;
+import java.security.PrivilegedActionException;
+import java.security.PrivilegedExceptionAction;
 import java.util.Arrays;
 import java.util.Comparator;;
 
@@ -278,6 +282,8 @@ public final class UnsignedBytes {
   static class LexicographicalComparatorHolder {
 
     static final Comparator<byte[]> BEST_COMPARATOR = getBestComparator();
+
+
 
     enum PureJavaComparator implements Comparator<byte[]> {
       INSTANCE;

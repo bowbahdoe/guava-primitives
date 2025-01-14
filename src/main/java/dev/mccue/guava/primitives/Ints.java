@@ -20,6 +20,7 @@ import static dev.mccue.guava.base.Preconditions.checkNotNull;
 import static dev.mccue.guava.base.Preconditions.checkPositionIndexes;
 
 import dev.mccue.guava.base.Converter;
+import com.google.errorprone.annotations.InlineMe;
 import java.io.Serializable;
 import java.util.AbstractList;
 import java.util.Arrays;
@@ -110,16 +111,17 @@ public final class Ints extends IntsMethodsForWeb {
    * Compares the two specified {@code int} values. The sign of the value returned is the same as
    * that of {@code ((Integer) a).compareTo(b)}.
    *
-   * <p><b>Java 7+ users:</b> this method should be treated as deprecated; use the equivalent {@code
-   * Integer#compare} method instead.
+   * <p><b>Note:</b> this method is now unnecessary and should be treated as deprecated; use the
+   * equivalent {@code Integer#compare} method instead.
    *
    * @param a the first {@code int} to compare
    * @param b the second {@code int} to compare
    * @return a negative value if {@code a} is less than {@code b}; a positive value if {@code a} is
    *     greater than {@code b}; or zero if they are equal
    */
+  @InlineMe(replacement = "Integer.compare(a, b)")
   public static int compare(int a, int b) {
-    return (a < b) ? -1 : ((a > b) ? 1 : 0);
+    return Integer.compare(a, b);
   }
 
   /**
@@ -258,12 +260,17 @@ public final class Ints extends IntsMethodsForWeb {
    * unchanged. If {@code value} is less than {@code min}, {@code min} is returned, and if {@code
    * value} is greater than {@code max}, {@code max} is returned.
    *
+   * <p><b>Java 21+ users:</b> Use {@code Math.clamp} instead. Note that that method is capable of
+   * constraining a {@code long} input to an {@code int} range.
+   *
    * @param value the {@code int} value to constrain
    * @param min the lower bound (inclusive) of the range to constrain {@code value} to
    * @param max the upper bound (inclusive) of the range to constrain {@code value} to
    * @throws IllegalArgumentException if {@code min > max}
    * @since 21.0
    */
+  // A call to bare "min" or "max" would resolve to our varargs method, not to any static import.
+  @SuppressWarnings("StaticImportPreferred")
   public static int constrainToRange(int value, int min, int max) {
     checkArgument(min <= max, "min (%s) must be less than or equal to max (%s)", min, max);
     return Math.min(Math.max(value, min), max);
@@ -275,19 +282,29 @@ public final class Ints extends IntsMethodsForWeb {
    *
    * @param arrays zero or more {@code int} arrays
    * @return a single array containing all the values from the source arrays, in order
+   * @throws IllegalArgumentException if the total number of elements in {@code arrays} does not fit
+   *     in an {@code int}
    */
   public static int[] concat(int[]... arrays) {
-    int length = 0;
+    long length = 0;
     for (int[] array : arrays) {
       length += array.length;
     }
-    int[] result = new int[length];
+    int[] result = new int[checkNoOverflow(length)];
     int pos = 0;
     for (int[] array : arrays) {
       System.arraycopy(array, 0, result, pos, array.length);
       pos += array.length;
     }
     return result;
+  }
+
+  private static int checkNoOverflow(long result) {
+    checkArgument(
+        result == (int) result,
+        "the total number of elements (%s) in the arrays must fit in an int",
+        result);
+    return (int) result;
   }
 
   /**
@@ -434,10 +451,12 @@ public final class Ints extends IntsMethodsForWeb {
     INSTANCE;
 
     @Override
+    // A call to bare "min" or "max" would resolve to our varargs method, not to any static import.
+    @SuppressWarnings("StaticImportPreferred")
     public int compare(int[] left, int[] right) {
       int minLength = Math.min(left.length, right.length);
       for (int i = 0; i < minLength; i++) {
-        int result = Ints.compare(left[i], right[i]);
+        int result = Integer.compare(left[i], right[i]);
         if (result != 0) {
           return result;
         }
@@ -774,8 +793,8 @@ public final class Ints extends IntsMethodsForWeb {
    * throwing an exception if parsing fails. Additionally, this method only accepts ASCII digits,
    * and returns {@code null} if non-ASCII digits are present in the string.
    *
-   * <p>Note that strings prefixed with ASCII {@code '+'} are rejected, even under JDK 7, despite
-   * the change to {@code Integer#parseInt(String)} for that version.
+   * <p>Note that strings prefixed with ASCII {@code '+'} are rejected, even though {@code
+   * Integer#parseInt(String)} accepts them.
    *
    * @param string the string representation of an integer value
    * @return the integer value represented by {@code string}, or {@code null} if {@code string} has
@@ -796,8 +815,8 @@ public final class Ints extends IntsMethodsForWeb {
    * throwing an exception if parsing fails. Additionally, this method only accepts ASCII digits,
    * and returns {@code null} if non-ASCII digits are present in the string.
    *
-   * <p>Note that strings prefixed with ASCII {@code '+'} are rejected, even under JDK 7, despite
-   * the change to {@code Integer#parseInt(String, int)} for that version.
+   * <p>Note that strings prefixed with ASCII {@code '+'} are rejected, even though {@code
+   * Integer#parseInt(String)} accepts them.
    *
    * @param string the string representation of an integer value
    * @param radix the radix to use when parsing
